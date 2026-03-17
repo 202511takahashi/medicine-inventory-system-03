@@ -9,8 +9,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 薬品一覧画面を表示するためのコントローラーです。
@@ -74,10 +77,12 @@ public class MedicineController {
     /**
      * /medicines/new にアクセスしたときに薬品登録画面を表示します。
      *
+     * @param model JSP にフォーム初期値を渡すためのオブジェクト
      * @return 薬品登録画面
      */
     @GetMapping("/medicines/new")
-    public String showMedicineForm() {
+    public String showMedicineForm(Model model) {
+        prepareFormModel(model, new LinkedHashMap<>(), new LinkedHashMap<>());
         return "medicine-form";
     }
 
@@ -94,19 +99,69 @@ public class MedicineController {
     }
 
     /**
-     * 登録画面から送信された薬品情報を受け取り、仮データ一覧へ追加します。
+     * 登録画面から送信された薬品情報を受け取り、入力チェック後に仮データ一覧へ追加します。
      *
      * @param name 薬品名
      * @param category カテゴリ
-     * @param stockQuantity 在庫数
-     * @param expirationDate 使用期限
-     * @return 一覧画面へのリダイレクト
+     * @param stockQuantityText 在庫数の入力値
+     * @param expirationDateText 使用期限の入力値
+     * @param model エラー時に画面へ値を戻すためのオブジェクト
+     * @return 一覧画面へのリダイレクト、または登録画面
      */
     @PostMapping("/medicines/create")
     public String createMedicine(@RequestParam("name") String name,
                                  @RequestParam("category") String category,
-                                 @RequestParam("stockQuantity") Integer stockQuantity,
-                                 @RequestParam("expirationDate") LocalDate expirationDate) {
+                                 @RequestParam("stockQuantity") String stockQuantityText,
+                                 @RequestParam("expirationDate") String expirationDateText,
+                                 Model model) {
+        Map<String, String> formData = new LinkedHashMap<>();
+        formData.put("name", name);
+        formData.put("category", category);
+        formData.put("stockQuantity", stockQuantityText);
+        formData.put("expirationDate", expirationDateText);
+
+        Map<String, String> errors = new LinkedHashMap<>();
+
+        String trimmedName = name == null ? "" : name.trim();
+        if (trimmedName.isEmpty()) {
+            errors.put("name", "薬品名を入力してください");
+        }
+
+        String trimmedCategory = category == null ? "" : category.trim();
+        if (trimmedCategory.isEmpty()) {
+            errors.put("category", "カテゴリを入力してください");
+        }
+
+        Integer stockQuantity = null;
+        if (stockQuantityText == null || stockQuantityText.trim().isEmpty()) {
+            errors.put("stockQuantity", "在庫数を入力してください");
+        } else {
+            try {
+                stockQuantity = Integer.parseInt(stockQuantityText.trim());
+                if (stockQuantity < 0) {
+                    errors.put("stockQuantity", "在庫数は0以上で入力してください");
+                }
+            } catch (NumberFormatException exception) {
+                errors.put("stockQuantity", "在庫数は0以上で入力してください");
+            }
+        }
+
+        LocalDate expirationDate = null;
+        if (expirationDateText == null || expirationDateText.trim().isEmpty()) {
+            errors.put("expirationDate", "使用期限を入力してください");
+        } else {
+            try {
+                expirationDate = LocalDate.parse(expirationDateText.trim());
+            } catch (DateTimeParseException exception) {
+                errors.put("expirationDate", "使用期限を入力してください");
+            }
+        }
+
+        if (!errors.isEmpty()) {
+            prepareFormModel(model, formData, errors);
+            return "medicine-form";
+        }
+
         // 既存データの最大IDに 1 を足して、新しいIDを採番します。
         int nextId = medicines.stream()
                 .map(Medicine::getId)
@@ -115,8 +170,8 @@ public class MedicineController {
 
         Medicine medicine = new Medicine(
                 nextId,
-                name,
-                category,
+                trimmedName,
+                trimmedCategory,
                 stockQuantity,
                 expirationDate,
                 LocalDateTime.now()
@@ -124,5 +179,17 @@ public class MedicineController {
 
         medicines.add(medicine);
         return "redirect:/medicines";
+    }
+
+    /**
+     * 登録画面で使う入力値とエラーメッセージをまとめて設定します。
+     *
+     * @param model JSP に渡すオブジェクト
+     * @param formData 入力済みの値
+     * @param errors 項目ごとのエラーメッセージ
+     */
+    private void prepareFormModel(Model model, Map<String, String> formData, Map<String, String> errors) {
+        model.addAttribute("formData", formData);
+        model.addAttribute("errors", errors);
     }
 }

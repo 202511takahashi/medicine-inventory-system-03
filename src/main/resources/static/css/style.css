@@ -272,6 +272,20 @@ h1 {
     box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
 }
 
+
+/* 項目ごとのエラーメッセージを赤文字で表示します。 */
+.field-error {
+    margin: 0;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #dc2626;
+}
+
+/* エラーがある入力欄を分かりやすく表示します。 */
+.form-input-error {
+    border-color: #dc2626;
+    background-color: #fef2f2;
+}
 /* ボタンを横並びで表示し、適度に間隔を空けます。 */
 .form-actions {
     display: flex;

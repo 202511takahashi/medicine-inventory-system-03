@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -17,26 +18,46 @@
             今回は入力内容を仮データとして一覧へ反映できるようにしています。
         </p>
 
-        <%-- 今後の登録処理追加を想定した入力フォームです。 --%>
+        <%-- 入力エラーがある場合は各項目の近くにメッセージを表示します。 --%>
         <form action="/medicines/create" method="post" class="medicine-form">
             <div class="form-group">
                 <label for="name" class="form-label">薬品名</label>
-                <input type="text" id="name" name="name" class="form-input" placeholder="例: アセトアミノフェン">
+                <input type="text" id="name" name="name"
+                       class="${not empty errors.name ? 'form-input form-input-error' : 'form-input'}"
+                       value="${formData.name}" placeholder="例: アセトアミノフェン">
+                <c:if test="${not empty errors.name}">
+                    <p class="field-error">${errors.name}</p>
+                </c:if>
             </div>
 
             <div class="form-group">
                 <label for="category" class="form-label">カテゴリ</label>
-                <input type="text" id="category" name="category" class="form-input" placeholder="例: 解熱鎮痛薬">
+                <input type="text" id="category" name="category"
+                       class="${not empty errors.category ? 'form-input form-input-error' : 'form-input'}"
+                       value="${formData.category}" placeholder="例: 解熱鎮痛薬">
+                <c:if test="${not empty errors.category}">
+                    <p class="field-error">${errors.category}</p>
+                </c:if>
             </div>
 
             <div class="form-group">
                 <label for="stockQuantity" class="form-label">在庫数</label>
-                <input type="number" id="stockQuantity" name="stockQuantity" class="form-input" placeholder="例: 20">
+                <input type="number" id="stockQuantity" name="stockQuantity"
+                       class="${not empty errors.stockQuantity ? 'form-input form-input-error' : 'form-input'}"
+                       value="${formData.stockQuantity}" placeholder="例: 20">
+                <c:if test="${not empty errors.stockQuantity}">
+                    <p class="field-error">${errors.stockQuantity}</p>
+                </c:if>
             </div>
 
             <div class="form-group">
                 <label for="expirationDate" class="form-label">使用期限</label>
-                <input type="date" id="expirationDate" name="expirationDate" class="form-input">
+                <input type="date" id="expirationDate" name="expirationDate"
+                       class="${not empty errors.expirationDate ? 'form-input form-input-error' : 'form-input'}"
+                       value="${formData.expirationDate}">
+                <c:if test="${not empty errors.expirationDate}">
+                    <p class="field-error">${errors.expirationDate}</p>
+                </c:if>
             </div>
 
             <div class="form-actions">
