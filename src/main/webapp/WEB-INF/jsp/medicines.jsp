@@ -59,10 +59,30 @@
                         <c:forEach var="medicine" items="${medicines}">
                             <c:set var="isLowStock" value="${medicine.stockQuantity <= 10}" />
                             <c:set var="isExpirationAlert" value="${expirationAlerts[medicine.id]}" />
+                            <c:set var="categoryClass" value="category-other" />
+                            <c:choose>
+                                <c:when test="${medicine.category == '解熱鎮痛薬'}">
+                                    <c:set var="categoryClass" value="category-analgesic" />
+                                </c:when>
+                                <c:when test="${medicine.category == '抗生物質'}">
+                                    <c:set var="categoryClass" value="category-antibiotic" />
+                                </c:when>
+                                <c:when test="${medicine.category == '消毒薬'}">
+                                    <c:set var="categoryClass" value="category-disinfectant" />
+                                </c:when>
+                                <c:when test="${medicine.category == '点滴・輸液'}">
+                                    <c:set var="categoryClass" value="category-infusion" />
+                                </c:when>
+                                <c:when test="${medicine.category == '劇薬'}">
+                                    <c:set var="categoryClass" value="category-strong" />
+                                </c:when>
+                            </c:choose>
                             <tr>
                                 <td>${medicine.id}</td>
                                 <td>${medicine.name}</td>
-                                <td>${medicine.category}</td>
+                                <td>
+                                    <span class="category-badge ${categoryClass}">${medicine.category}</span>
+                                </td>
                                 <td class="${isLowStock ? 'stock-warning-text' : ''}">
                                     ${medicine.stockQuantity}
                                 </td>

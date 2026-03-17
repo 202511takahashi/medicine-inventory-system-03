@@ -282,6 +282,52 @@ h1 {
 }
 
 
+
+/* カテゴリをバッジ風に見やすく表示します。 */
+.category-badge {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+/* 解熱鎮痛薬は青系で表示します。 */
+.category-analgesic {
+    background-color: #dbeafe;
+    color: #1d4ed8;
+}
+
+/* 抗生物質は緑系で表示します。 */
+.category-antibiotic {
+    background-color: #dcfce7;
+    color: #15803d;
+}
+
+/* 消毒薬は紫系で表示します。 */
+.category-disinfectant {
+    background-color: #f3e8ff;
+    color: #7e22ce;
+}
+
+/* 点滴・輸液は水色系で表示します。 */
+.category-infusion {
+    background-color: #dbeafe;
+    color: #0369a1;
+}
+
+/* 劇薬は赤系で表示します。 */
+.category-strong {
+    background-color: #fee2e2;
+    color: #b91c1c;
+}
+
+/* 未定義カテゴリはグレー系で表示します。 */
+.category-other {
+    background-color: #e5e7eb;
+    color: #4b5563;
+}
 /* 在庫不足の在庫数を赤文字で表示します。 */
 .stock-warning-text {
     color: #dc2626;
