@@ -132,6 +132,22 @@ h1 {
     color: #4b5563;
 }
 
+
+/* 一覧画面上部の操作ボタンを配置します。 */
+.list-header-actions {
+    margin: 0 0 20px;
+}
+
+/* 新規登録ボタンを一覧画面で少し目立たせます。 */
+.add-button {
+    background-color: #0f766e;
+    box-shadow: 0 10px 20px rgba(15, 118, 110, 0.22);
+}
+
+.add-button:hover {
+    background-color: #0b5f59;
+    box-shadow: 0 14px 24px rgba(11, 95, 89, 0.24);
+}
 /* テーブルが横幅を超える場合でも崩れにくくします。 */
 .table-wrapper {
     width: 100%;

@@ -18,6 +18,11 @@
             今後、この画面をもとに登録・編集・削除機能を追加していきます。
         </p>
 
+        <%-- 薬品登録画面へ移動するためのボタンです。 --%>
+        <div class="list-header-actions">
+            <a href="/medicines/new" class="menu-button add-button">＋ 新規登録</a>
+        </div>
+
         <div class="table-wrapper">
             <table class="medicine-table">
                 <thead>
