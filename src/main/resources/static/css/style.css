@@ -1,4 +1,4 @@
-/* トップ画面全体の色や文字の基本設定です。 */
+﻿/* トップ画面全体の色や文字の基本設定です。 */
 body {
     margin: 0;
     min-height: 100vh;
@@ -132,8 +132,6 @@ h1 {
     color: #4b5563;
 }
 
-
-
 /* 一覧画面上部の検索フォームと操作ボタンを横並びにします。 */
 .list-toolbar {
     display: flex;
@@ -170,7 +168,6 @@ h1 {
     box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
 }
 
-
 /* 並び替え用のセレクトボックスです。 */
 .sort-select {
     min-width: 180px;
@@ -188,6 +185,7 @@ h1 {
     border-color: #2563eb;
     box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
 }
+
 /* 検索ボタンの色です。 */
 .search-button {
     background-color: #2563eb;
@@ -215,6 +213,7 @@ h1 {
     text-align: center;
     font-weight: 700;
 }
+
 /* 一覧画面上部の操作ボタンを配置します。 */
 .list-header-actions {
     margin: 0 0 20px;
@@ -230,6 +229,7 @@ h1 {
     background-color: #0b5f59;
     box-shadow: 0 14px 24px rgba(11, 95, 89, 0.24);
 }
+
 /* テーブルが横幅を超える場合でも崩れにくくします。 */
 .table-wrapper {
     width: 100%;
@@ -266,6 +266,11 @@ h1 {
     vertical-align: middle;
 }
 
+.medicine-table th:last-child,
+.medicine-table td:last-child {
+    text-align: center;
+}
+
 /* 行ごとの区切りを見やすくするための背景色です。 */
 .medicine-table tbody tr:nth-child(even) {
     background-color: #f9fafb;
@@ -281,7 +286,34 @@ h1 {
     border-bottom: none;
 }
 
+/* 編集リンクを一覧の中で見つけやすく表示します。 */
+.edit-cell {
+    white-space: nowrap;
+}
 
+.edit-link {
+    display: inline-block;
+    padding: 8px 16px;
+    border: 1px solid #bfdbfe;
+    border-radius: 999px;
+    color: #1d4ed8;
+    background-color: #eff6ff;
+    font-size: 0.92rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.edit-link:hover {
+    color: #1e40af;
+    background-color: #dbeafe;
+    border-color: #93c5fd;
+}
+
+.edit-link:focus-visible {
+    outline: 3px solid rgba(37, 99, 235, 0.2);
+    outline-offset: 3px;
+}
 
 /* カテゴリをバッジ風に見やすく表示します。 */
 .category-badge {
@@ -328,6 +360,7 @@ h1 {
     background-color: #e5e7eb;
     color: #4b5563;
 }
+
 /* 在庫不足の在庫数を赤文字で表示します。 */
 .stock-warning-text {
     color: #dc2626;
@@ -350,7 +383,6 @@ h1 {
     background-color: #fee2e2;
     color: #b91c1c;
 }
-
 
 /* 期限が近い使用期限をオレンジ色で表示します。 */
 .expiration-warning-text {
@@ -376,11 +408,13 @@ h1 {
     background-color: #fef2f2;
     color: #991b1b;
 }
+
 /* 通常状態の表示です。 */
 .status-normal {
     background-color: #e8f5ee;
     color: #166534;
 }
+
 /* 戻るボタンを一覧画面向けに少し控えめな色にします。 */
 .secondary-button {
     background-color: #475569;
@@ -454,13 +488,13 @@ h1 {
     box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
 }
 
-
 /* 項目ごとのエラーメッセージを赤文字で表示します。 */
 .field-error {
     margin: 0;
     font-size: 0.9rem;
     font-weight: 700;
     color: #dc2626;
+    line-height: 1.6;
 }
 
 /* エラーがある入力欄を分かりやすく表示します。 */
@@ -468,6 +502,7 @@ h1 {
     border-color: #dc2626;
     background-color: #fef2f2;
 }
+
 /* ボタンを横並びで表示し、適度に間隔を空けます。 */
 .form-actions {
     display: flex;

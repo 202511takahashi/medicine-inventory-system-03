@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+﻿<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
 <html lang="ja">
@@ -15,7 +15,7 @@
         <h1 class="page-title">薬品一覧</h1>
         <p class="page-description">
             現在登録されている薬品情報の一覧です。<br>
-            今後、この画面をもとに登録・編集・削除機能を追加していきます。
+            この画面から登録済みの薬品情報を確認し、必要に応じて編集できます。
         </p>
 
         <div class="list-toolbar">
@@ -52,6 +52,7 @@
                             <th>在庫数</th>
                             <th>使用期限</th>
                             <th>状態</th>
+                            <th>編集</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -104,6 +105,9 @@
                                             <span class="status-badge status-normal">正常</span>
                                         </c:otherwise>
                                     </c:choose>
+                                </td>
+                                <td class="edit-cell">
+                                    <a href="/medicines/edit/${medicine.id}" class="edit-link">編集</a>
                                 </td>
                             </tr>
                         </c:forEach>

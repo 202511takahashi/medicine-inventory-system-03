@@ -5,21 +5,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>薬品登録</title>
+    <title>${isEditMode ? '薬品編集' : '薬品登録'}</title>
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 <main class="form-page-wrapper">
     <section class="form-card">
-        <p class="section-label">Medicine Registration</p>
-        <h1 class="page-title">薬品登録</h1>
+        <p class="section-label">${isEditMode ? 'Medicine Edit' : 'Medicine Registration'}</p>
+        <h1 class="page-title">${isEditMode ? '薬品編集' : '薬品登録'}</h1>
         <p class="page-description">
-            薬品情報を入力するための登録画面です。<br>
-            今回は入力内容を仮データとして一覧へ反映できるようにしています。
+            ${isEditMode ? '登録済みの薬品情報を修正するための編集画面です。' : '薬品情報を入力するための登録画面です。'}<br>
+            ${isEditMode ? '内容を更新すると、一覧画面の対象データだけが変更されます。' : '今回は入力内容を仮データとして一覧へ反映できるようにしています。'}
         </p>
 
         <%-- 入力エラーがある場合は各項目の近くにメッセージを表示します。 --%>
-        <form action="/medicines/create" method="post" class="medicine-form">
+        <form action="${formAction}" method="post" class="medicine-form">
             <div class="form-group">
                 <label for="name" class="form-label">薬品名</label>
                 <input type="text" id="name" name="name"
@@ -61,7 +61,7 @@
             </div>
 
             <div class="form-actions">
-                <button type="submit" class="menu-button">登録</button>
+                <button type="submit" class="menu-button">${isEditMode ? '更新' : '登録'}</button>
                 <a href="/medicines" class="menu-button secondary-button">一覧へ戻る</a>
             </div>
         </form>

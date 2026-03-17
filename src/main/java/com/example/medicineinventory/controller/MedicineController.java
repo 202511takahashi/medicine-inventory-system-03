@@ -4,6 +4,7 @@ import com.example.medicineinventory.model.Medicine;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -18,15 +19,14 @@ import java.util.Locale;
 import java.util.Map;
 
 /**
- * 薬品一覧画面を表示するためのコントローラーです。
- * 現在はデータベースを使わず、仮データを画面に渡します。
+ * 薬品一覧・登録・編集画面を表示するためのコントローラーです。
+ * 現在はデータベースを使わず、Controller 内の仮データを画面に渡します。
  */
 @Controller
 public class MedicineController {
 
     /**
      * データベースの代わりに、画面表示用の仮データを保持します。
-     * 今回は登録処理の流れを確認するため、Controller 内で管理します。
      */
     private final List<Medicine> medicines = new ArrayList<>();
 
@@ -84,7 +84,25 @@ public class MedicineController {
      */
     @GetMapping("/medicines/new")
     public String showMedicineForm(Model model) {
-        prepareFormModel(model, new LinkedHashMap<>(), new LinkedHashMap<>());
+        prepareFormModel(model, createEmptyFormData(), new LinkedHashMap<>(), false, null);
+        return "medicine-form";
+    }
+
+    /**
+     * /medicines/edit/{id} にアクセスしたときに薬品編集画面を表示します。
+     *
+     * @param id 編集対象の薬品ID
+     * @param model JSP にフォーム初期値を渡すためのオブジェクト
+     * @return 薬品編集画面、対象がない場合は一覧画面へリダイレクト
+     */
+    @GetMapping("/medicines/edit/{id}")
+    public String showEditForm(@PathVariable Integer id, Model model) {
+        Medicine medicine = findMedicineById(id);
+        if (medicine == null) {
+            return "redirect:/medicines";
+        }
+
+        prepareFormModel(model, createFormDataFromMedicine(medicine), new LinkedHashMap<>(), true, medicine.getId());
         return "medicine-form";
     }
 
@@ -137,6 +155,84 @@ public class MedicineController {
                                  @RequestParam("stockQuantity") String stockQuantityText,
                                  @RequestParam("expirationDate") String expirationDateText,
                                  Model model) {
+        MedicineFormData validatedForm = validateMedicineInput(name, category, stockQuantityText, expirationDateText);
+
+        if (!validatedForm.getErrors().isEmpty()) {
+            prepareFormModel(model, validatedForm.getFormData(), validatedForm.getErrors(), false, null);
+            return "medicine-form";
+        }
+
+        int nextId = medicines.stream()
+                .map(Medicine::getId)
+                .max(Integer::compareTo)
+                .orElse(0) + 1;
+
+        Medicine medicine = new Medicine(
+                nextId,
+                validatedForm.getName(),
+                validatedForm.getCategory(),
+                validatedForm.getStockQuantity(),
+                validatedForm.getExpirationDate(),
+                LocalDateTime.now()
+        );
+
+        medicines.add(medicine);
+        return "redirect:/medicines";
+    }
+
+    /**
+     * 編集画面から送信された薬品情報を受け取り、入力チェック後に対象データだけ更新します。
+     *
+     * @param id 更新対象の薬品ID
+     * @param name 薬品名
+     * @param category カテゴリ
+     * @param stockQuantityText 在庫数の入力値
+     * @param expirationDateText 使用期限の入力値
+     * @param model エラー時に画面へ値を戻すためのオブジェクト
+     * @return 一覧画面へのリダイレクト、または編集画面
+     */
+    @PostMapping("/medicines/update/{id}")
+    public String updateMedicine(@PathVariable Integer id,
+                                 @RequestParam("name") String name,
+                                 @RequestParam("category") String category,
+                                 @RequestParam("stockQuantity") String stockQuantityText,
+                                 @RequestParam("expirationDate") String expirationDateText,
+                                 Model model) {
+        Medicine medicine = findMedicineById(id);
+        if (medicine == null) {
+            return "redirect:/medicines";
+        }
+
+        MedicineFormData validatedForm = validateMedicineInput(name, category, stockQuantityText, expirationDateText);
+
+        if (!validatedForm.getErrors().isEmpty()) {
+            prepareFormModel(model, validatedForm.getFormData(), validatedForm.getErrors(), true, id);
+            return "medicine-form";
+        }
+
+        // id が一致した1件だけを setter で更新します。
+        medicine.setName(validatedForm.getName());
+        medicine.setCategory(validatedForm.getCategory());
+        medicine.setStockQuantity(validatedForm.getStockQuantity());
+        medicine.setExpirationDate(validatedForm.getExpirationDate());
+
+        return "redirect:/medicines";
+    }
+
+    /**
+     * 登録と更新で共通利用する入力チェックです。
+     * 入力値の整形結果とエラーメッセージをまとめて返します。
+     *
+     * @param name 薬品名の入力値
+     * @param category カテゴリの入力値
+     * @param stockQuantityText 在庫数の入力値
+     * @param expirationDateText 使用期限の入力値
+     * @return 整形後の値とエラー情報
+     */
+    private MedicineFormData validateMedicineInput(String name,
+                                                   String category,
+                                                   String stockQuantityText,
+                                                   String expirationDateText) {
         Map<String, String> formData = new LinkedHashMap<>();
         formData.put("name", name);
         formData.put("category", category);
@@ -180,28 +276,58 @@ public class MedicineController {
             }
         }
 
-        if (!errors.isEmpty()) {
-            prepareFormModel(model, formData, errors);
-            return "medicine-form";
-        }
-
-        // 既存データの最大IDに 1 を足して、新しいIDを採番します。
-        int nextId = medicines.stream()
-                .map(Medicine::getId)
-                .max(Integer::compareTo)
-                .orElse(0) + 1;
-
-        Medicine medicine = new Medicine(
-                nextId,
+        return new MedicineFormData(
+                formData,
+                errors,
                 trimmedName,
                 trimmedCategory,
                 stockQuantity,
-                expirationDate,
-                LocalDateTime.now()
+                expirationDate
         );
+    }
 
-        medicines.add(medicine);
-        return "redirect:/medicines";
+    /**
+     * 薬品IDに一致するデータを1件探します。
+     *
+     * @param id 探したい薬品ID
+     * @return 見つかった薬品。ない場合は null
+     */
+    private Medicine findMedicineById(Integer id) {
+        for (Medicine medicine : medicines) {
+            if (medicine.getId().equals(id)) {
+                return medicine;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * 新規登録画面で使う空のフォームデータを作成します。
+     *
+     * @return 空のフォームデータ
+     */
+    private Map<String, String> createEmptyFormData() {
+        Map<String, String> formData = new LinkedHashMap<>();
+        formData.put("name", "");
+        formData.put("category", "");
+        formData.put("stockQuantity", "");
+        formData.put("expirationDate", "");
+        return formData;
+    }
+
+    /**
+     * 編集画面で初期表示するためのフォームデータを作成します。
+     *
+     * @param medicine 編集対象の薬品
+     * @return フォーム初期表示用データ
+     */
+    private Map<String, String> createFormDataFromMedicine(Medicine medicine) {
+        Map<String, String> formData = new LinkedHashMap<>();
+        formData.put("name", medicine.getName());
+        formData.put("category", medicine.getCategory());
+        formData.put("stockQuantity", String.valueOf(medicine.getStockQuantity()));
+        formData.put("expirationDate", String.valueOf(medicine.getExpirationDate()));
+        return formData;
     }
 
     /**
@@ -268,14 +394,73 @@ public class MedicineController {
     }
 
     /**
-     * 登録画面で使う入力値とエラーメッセージをまとめて設定します。
+     * 登録画面と編集画面で使う共通属性を設定します。
      *
      * @param model JSP に渡すオブジェクト
      * @param formData 入力済みの値
      * @param errors 項目ごとのエラーメッセージ
+     * @param isEditMode 編集画面なら true
+     * @param medicineId 編集対象の薬品ID
      */
-    private void prepareFormModel(Model model, Map<String, String> formData, Map<String, String> errors) {
+    private void prepareFormModel(Model model,
+                                  Map<String, String> formData,
+                                  Map<String, String> errors,
+                                  boolean isEditMode,
+                                  Integer medicineId) {
         model.addAttribute("formData", formData);
         model.addAttribute("errors", errors);
+        model.addAttribute("isEditMode", isEditMode);
+        model.addAttribute("medicineId", medicineId);
+        model.addAttribute("formAction", isEditMode ? "/medicines/update/" + medicineId : "/medicines/create");
+    }
+
+    /**
+     * 入力チェック後の値をまとめて扱うための小さなクラスです。
+     */
+    private static class MedicineFormData {
+        private final Map<String, String> formData;
+        private final Map<String, String> errors;
+        private final String name;
+        private final String category;
+        private final Integer stockQuantity;
+        private final LocalDate expirationDate;
+
+        private MedicineFormData(Map<String, String> formData,
+                                 Map<String, String> errors,
+                                 String name,
+                                 String category,
+                                 Integer stockQuantity,
+                                 LocalDate expirationDate) {
+            this.formData = formData;
+            this.errors = errors;
+            this.name = name;
+            this.category = category;
+            this.stockQuantity = stockQuantity;
+            this.expirationDate = expirationDate;
+        }
+
+        public Map<String, String> getFormData() {
+            return formData;
+        }
+
+        public Map<String, String> getErrors() {
+            return errors;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public String getCategory() {
+            return category;
+        }
+
+        public Integer getStockQuantity() {
+            return stockQuantity;
+        }
+
+        public LocalDate getExpirationDate() {
+            return expirationDate;
+        }
     }
 }
