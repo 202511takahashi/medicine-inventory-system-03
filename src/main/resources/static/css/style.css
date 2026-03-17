@@ -170,6 +170,24 @@ h1 {
     box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
 }
 
+
+/* 並び替え用のセレクトボックスです。 */
+.sort-select {
+    min-width: 180px;
+    padding: 14px 16px;
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    box-sizing: border-box;
+    font-size: 1rem;
+    color: #1f2937;
+    background-color: #ffffff;
+}
+
+.sort-select:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+}
 /* 検索ボタンの色です。 */
 .search-button {
     background-color: #2563eb;

@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
@@ -89,29 +90,34 @@ public class MedicineController {
 
     /**
      * /medicines にアクセスしたときに薬品一覧画面を表示します。
-     * キーワードがある場合は、薬品名またはカテゴリで部分一致検索します。
+     * キーワードがある場合は薬品名またはカテゴリで部分一致検索し、その後に並び替えを適用します。
      *
      * @param keyword 検索キーワード
+     * @param sort 並び替え条件
      * @param model JSP にデータを渡すためのオブジェクト
      * @return 薬品一覧画面
      */
     @GetMapping("/medicines")
     public String showMedicines(@RequestParam(value = "keyword", required = false) String keyword,
+                                @RequestParam(value = "sort", required = false) String sort,
                                 Model model) {
         LocalDate today = LocalDate.now();
         LocalDate alertLimitDate = today.plusMonths(1);
         String trimmedKeyword = keyword == null ? "" : keyword.trim();
+        String sortValue = sort == null ? "" : sort.trim();
 
         List<Medicine> filteredMedicines = filterMedicines(trimmedKeyword);
+        List<Medicine> sortedMedicines = sortMedicines(filteredMedicines, sortValue);
 
         Map<Integer, Boolean> expirationAlerts = new LinkedHashMap<>();
-        for (Medicine medicine : filteredMedicines) {
+        for (Medicine medicine : sortedMedicines) {
             expirationAlerts.put(medicine.getId(), isExpirationAlertTarget(medicine.getExpirationDate(), today, alertLimitDate));
         }
 
-        model.addAttribute("medicines", filteredMedicines);
+        model.addAttribute("medicines", sortedMedicines);
         model.addAttribute("expirationAlerts", expirationAlerts);
         model.addAttribute("keyword", trimmedKeyword);
+        model.addAttribute("sort", sortValue);
         return "medicines";
     }
 
@@ -222,6 +228,29 @@ public class MedicineController {
         }
 
         return filteredMedicines;
+    }
+
+    /**
+     * 指定された並び替え条件でカテゴリ順に並び替えます。
+     *
+     * @param targetMedicines 並び替え対象の薬品一覧
+     * @param sort 並び替え条件
+     * @return 並び替え後の薬品一覧
+     */
+    private List<Medicine> sortMedicines(List<Medicine> targetMedicines, String sort) {
+        List<Medicine> sortedMedicines = new ArrayList<>(targetMedicines);
+
+        Comparator<Medicine> categoryComparator = Comparator.comparing(
+                medicine -> medicine.getCategory().toLowerCase(Locale.ROOT)
+        );
+
+        if ("categoryAsc".equals(sort)) {
+            sortedMedicines.sort(categoryComparator);
+        } else if ("categoryDesc".equals(sort)) {
+            sortedMedicines.sort(categoryComparator.reversed());
+        }
+
+        return sortedMedicines;
     }
 
     /**

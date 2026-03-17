@@ -19,10 +19,17 @@
         </p>
 
         <div class="list-toolbar">
-            <%-- 薬品検索用のフォームです。 --%>
+            <%-- 薬品検索と並び替えをまとめたフォームです。 --%>
             <form action="/medicines" method="get" class="search-form">
                 <input type="text" name="keyword" class="search-input"
                        value="${keyword}" placeholder="薬品名またはカテゴリで検索">
+
+                <select name="sort" class="sort-select">
+                    <option value="" ${empty sort ? 'selected' : ''}>並び替えなし</option>
+                    <option value="categoryAsc" ${sort == 'categoryAsc' ? 'selected' : ''}>カテゴリ昇順</option>
+                    <option value="categoryDesc" ${sort == 'categoryDesc' ? 'selected' : ''}>カテゴリ降順</option>
+                </select>
+
                 <button type="submit" class="menu-button search-button">検索</button>
                 <a href="/medicines" class="menu-button clear-button">クリア</a>
             </form>
