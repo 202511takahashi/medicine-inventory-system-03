@@ -199,6 +199,35 @@ h1 {
     border-bottom: none;
 }
 
+
+/* 在庫不足の在庫数を赤文字で表示します。 */
+.stock-warning-text {
+    color: #dc2626;
+    font-weight: 700;
+}
+
+/* 状態表示をバッジ風に見やすく整えます。 */
+.status-badge {
+    display: inline-block;
+    min-width: 72px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-align: center;
+}
+
+/* 在庫不足の警告表示です。 */
+.status-warning {
+    background-color: #fee2e2;
+    color: #b91c1c;
+}
+
+/* 通常状態の表示です。 */
+.status-normal {
+    background-color: #e8f5ee;
+    color: #166534;
+}
 /* 戻るボタンを一覧画面向けに少し控えめな色にします。 */
 .secondary-button {
     background-color: #475569;

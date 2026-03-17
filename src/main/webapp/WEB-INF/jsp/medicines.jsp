@@ -32,6 +32,7 @@
                     <th>カテゴリ</th>
                     <th>在庫数</th>
                     <th>使用期限</th>
+                    <th>状態</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -41,8 +42,20 @@
                         <td>${medicine.id}</td>
                         <td>${medicine.name}</td>
                         <td>${medicine.category}</td>
-                        <td>${medicine.stockQuantity}</td>
+                        <td class="${medicine.stockQuantity <= 10 ? 'stock-warning-text' : ''}">
+                            ${medicine.stockQuantity}
+                        </td>
                         <td>${medicine.expirationDate}</td>
+                        <td>
+                            <c:choose>
+                                <c:when test="${medicine.stockQuantity <= 10}">
+                                    <span class="status-badge status-warning">在庫不足</span>
+                                </c:when>
+                                <c:otherwise>
+                                    <span class="status-badge status-normal">正常</span>
+                                </c:otherwise>
+                            </c:choose>
+                        </td>
                     </tr>
                 </c:forEach>
                 </tbody>
