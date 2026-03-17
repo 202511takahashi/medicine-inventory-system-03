@@ -13,6 +13,7 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -88,22 +89,29 @@ public class MedicineController {
 
     /**
      * /medicines にアクセスしたときに薬品一覧画面を表示します。
+     * キーワードがある場合は、薬品名またはカテゴリで部分一致検索します。
      *
+     * @param keyword 検索キーワード
      * @param model JSP にデータを渡すためのオブジェクト
      * @return 薬品一覧画面
      */
     @GetMapping("/medicines")
-    public String showMedicines(Model model) {
+    public String showMedicines(@RequestParam(value = "keyword", required = false) String keyword,
+                                Model model) {
         LocalDate today = LocalDate.now();
         LocalDate alertLimitDate = today.plusMonths(1);
+        String trimmedKeyword = keyword == null ? "" : keyword.trim();
+
+        List<Medicine> filteredMedicines = filterMedicines(trimmedKeyword);
 
         Map<Integer, Boolean> expirationAlerts = new LinkedHashMap<>();
-        for (Medicine medicine : medicines) {
+        for (Medicine medicine : filteredMedicines) {
             expirationAlerts.put(medicine.getId(), isExpirationAlertTarget(medicine.getExpirationDate(), today, alertLimitDate));
         }
 
-        model.addAttribute("medicines", medicines);
+        model.addAttribute("medicines", filteredMedicines);
         model.addAttribute("expirationAlerts", expirationAlerts);
+        model.addAttribute("keyword", trimmedKeyword);
         return "medicines";
     }
 
@@ -188,6 +196,32 @@ public class MedicineController {
 
         medicines.add(medicine);
         return "redirect:/medicines";
+    }
+
+    /**
+     * 薬品名またはカテゴリに対して部分一致検索を行います。
+     *
+     * @param keyword 検索キーワード
+     * @return 検索後の薬品一覧
+     */
+    private List<Medicine> filterMedicines(String keyword) {
+        if (keyword.isEmpty()) {
+            return new ArrayList<>(medicines);
+        }
+
+        String lowerKeyword = keyword.toLowerCase(Locale.ROOT);
+        List<Medicine> filteredMedicines = new ArrayList<>();
+
+        for (Medicine medicine : medicines) {
+            String medicineName = medicine.getName().toLowerCase(Locale.ROOT);
+            String medicineCategory = medicine.getCategory().toLowerCase(Locale.ROOT);
+
+            if (medicineName.contains(lowerKeyword) || medicineCategory.contains(lowerKeyword)) {
+                filteredMedicines.add(medicine);
+            }
+        }
+
+        return filteredMedicines;
     }
 
     /**

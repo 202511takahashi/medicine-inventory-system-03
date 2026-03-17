@@ -133,6 +133,70 @@ h1 {
 }
 
 
+
+/* 一覧画面上部の検索フォームと操作ボタンを横並びにします。 */
+.list-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+/* 検索フォームを横並びで見やすく配置します。 */
+.search-form {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+/* 検索キーワード入力欄です。 */
+.search-input {
+    min-width: 280px;
+    padding: 14px 16px;
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    box-sizing: border-box;
+    font-size: 1rem;
+    color: #1f2937;
+    background-color: #ffffff;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+}
+
+/* 検索ボタンの色です。 */
+.search-button {
+    background-color: #2563eb;
+}
+
+/* クリア用ボタンの色です。 */
+.clear-button {
+    background-color: #64748b;
+    box-shadow: 0 10px 20px rgba(100, 116, 139, 0.18);
+}
+
+.clear-button:hover {
+    background-color: #475569;
+    box-shadow: 0 14px 24px rgba(71, 85, 105, 0.22);
+}
+
+/* 検索結果が0件のときのメッセージです。 */
+.empty-message {
+    margin: 0;
+    padding: 24px;
+    border: 1px dashed #cbd5e1;
+    border-radius: 14px;
+    background-color: #f8fafc;
+    color: #475569;
+    text-align: center;
+    font-weight: 700;
+}
 /* 一覧画面上部の操作ボタンを配置します。 */
 .list-header-actions {
     margin: 0 0 20px;

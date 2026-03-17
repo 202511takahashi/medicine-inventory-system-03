@@ -18,59 +18,76 @@
             今後、この画面をもとに登録・編集・削除機能を追加していきます。
         </p>
 
-        <%-- 薬品登録画面へ移動するためのボタンです。 --%>
-        <div class="list-header-actions">
-            <a href="/medicines/new" class="menu-button add-button">＋ 新規登録</a>
+        <div class="list-toolbar">
+            <%-- 薬品検索用のフォームです。 --%>
+            <form action="/medicines" method="get" class="search-form">
+                <input type="text" name="keyword" class="search-input"
+                       value="${keyword}" placeholder="薬品名またはカテゴリで検索">
+                <button type="submit" class="menu-button search-button">検索</button>
+                <a href="/medicines" class="menu-button clear-button">クリア</a>
+            </form>
+
+            <%-- 薬品登録画面へ移動するためのボタンです。 --%>
+            <div class="list-header-actions">
+                <a href="/medicines/new" class="menu-button add-button">＋ 新規登録</a>
+            </div>
         </div>
 
-        <div class="table-wrapper">
-            <table class="medicine-table">
-                <thead>
-                <tr>
-                    <th>薬品ID</th>
-                    <th>薬品名</th>
-                    <th>カテゴリ</th>
-                    <th>在庫数</th>
-                    <th>使用期限</th>
-                    <th>状態</th>
-                </tr>
-                </thead>
-                <tbody>
-                <%-- Controller から受け取った medicines を1件ずつ表示します。 --%>
-                <c:forEach var="medicine" items="${medicines}">
-                    <c:set var="isLowStock" value="${medicine.stockQuantity <= 10}" />
-                    <c:set var="isExpirationAlert" value="${expirationAlerts[medicine.id]}" />
-                    <tr>
-                        <td>${medicine.id}</td>
-                        <td>${medicine.name}</td>
-                        <td>${medicine.category}</td>
-                        <td class="${isLowStock ? 'stock-warning-text' : ''}">
-                            ${medicine.stockQuantity}
-                        </td>
-                        <td class="${isExpirationAlert ? 'expiration-warning-text' : ''}">
-                            ${medicine.expirationDate}
-                        </td>
-                        <td>
-                            <c:choose>
-                                <c:when test="${isLowStock and isExpirationAlert}">
-                                    <span class="status-badge status-critical">在庫不足・期限注意</span>
-                                </c:when>
-                                <c:when test="${isLowStock}">
-                                    <span class="status-badge status-warning">在庫不足</span>
-                                </c:when>
-                                <c:when test="${isExpirationAlert}">
-                                    <span class="status-badge status-expiration">期限注意</span>
-                                </c:when>
-                                <c:otherwise>
-                                    <span class="status-badge status-normal">正常</span>
-                                </c:otherwise>
-                            </c:choose>
-                        </td>
-                    </tr>
-                </c:forEach>
-                </tbody>
-            </table>
-        </div>
+        <c:choose>
+            <c:when test="${not empty medicines}">
+                <div class="table-wrapper">
+                    <table class="medicine-table">
+                        <thead>
+                        <tr>
+                            <th>薬品ID</th>
+                            <th>薬品名</th>
+                            <th>カテゴリ</th>
+                            <th>在庫数</th>
+                            <th>使用期限</th>
+                            <th>状態</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <%-- Controller から受け取った medicines を1件ずつ表示します。 --%>
+                        <c:forEach var="medicine" items="${medicines}">
+                            <c:set var="isLowStock" value="${medicine.stockQuantity <= 10}" />
+                            <c:set var="isExpirationAlert" value="${expirationAlerts[medicine.id]}" />
+                            <tr>
+                                <td>${medicine.id}</td>
+                                <td>${medicine.name}</td>
+                                <td>${medicine.category}</td>
+                                <td class="${isLowStock ? 'stock-warning-text' : ''}">
+                                    ${medicine.stockQuantity}
+                                </td>
+                                <td class="${isExpirationAlert ? 'expiration-warning-text' : ''}">
+                                    ${medicine.expirationDate}
+                                </td>
+                                <td>
+                                    <c:choose>
+                                        <c:when test="${isLowStock and isExpirationAlert}">
+                                            <span class="status-badge status-critical">在庫不足・期限注意</span>
+                                        </c:when>
+                                        <c:when test="${isLowStock}">
+                                            <span class="status-badge status-warning">在庫不足</span>
+                                        </c:when>
+                                        <c:when test="${isExpirationAlert}">
+                                            <span class="status-badge status-expiration">期限注意</span>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <span class="status-badge status-normal">正常</span>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                        </tbody>
+                    </table>
+                </div>
+            </c:when>
+            <c:otherwise>
+                <p class="empty-message">該当する薬品がありません。</p>
+            </c:otherwise>
+        </c:choose>
 
         <div class="action-area">
             <a href="/" class="menu-button secondary-button">トップへ戻る</a>
