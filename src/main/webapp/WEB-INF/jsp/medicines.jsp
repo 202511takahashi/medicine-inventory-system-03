@@ -38,23 +38,30 @@
                 <tbody>
                 <%-- Controller から受け取った medicines を1件ずつ表示します。 --%>
                 <c:forEach var="medicine" items="${medicines}">
+                    <c:set var="isLowStock" value="${medicine.stockQuantity <= 10}" />
+                    <c:set var="isExpirationAlert" value="${expirationAlerts[medicine.id]}" />
                     <tr>
                         <td>${medicine.id}</td>
                         <td>${medicine.name}</td>
                         <td>${medicine.category}</td>
-                        <td class="${medicine.stockQuantity <= 10 ? 'stock-warning-text' : ''}">
+                        <td class="${isLowStock ? 'stock-warning-text' : ''}">
                             ${medicine.stockQuantity}
                         </td>
-                        <td>${medicine.expirationDate}</td>
+                        <td class="${isExpirationAlert ? 'expiration-warning-text' : ''}">
+                            ${medicine.expirationDate}
+                        </td>
                         <td>
-                            <c:choose>
-                                <c:when test="${medicine.stockQuantity <= 10}">
+                            <div class="status-group">
+                                <c:if test="${isLowStock}">
                                     <span class="status-badge status-warning">在庫不足</span>
-                                </c:when>
-                                <c:otherwise>
+                                </c:if>
+                                <c:if test="${isExpirationAlert}">
+                                    <span class="status-badge status-expiration">期限注意</span>
+                                </c:if>
+                                <c:if test="${not isLowStock and not isExpirationAlert}">
                                     <span class="status-badge status-normal">正常</span>
-                                </c:otherwise>
-                            </c:choose>
+                                </c:if>
+                            </div>
                         </td>
                     </tr>
                 </c:forEach>

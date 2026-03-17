@@ -45,7 +45,7 @@ public class MedicineController {
                 "アモキシシリン",
                 "抗生物質",
                 8,
-                LocalDate.of(2026, 8, 15),
+                LocalDate.now().plusDays(20),
                 LocalDateTime.now()
         ));
         medicines.add(new Medicine(
@@ -94,7 +94,16 @@ public class MedicineController {
      */
     @GetMapping("/medicines")
     public String showMedicines(Model model) {
+        LocalDate today = LocalDate.now();
+        LocalDate alertLimitDate = today.plusMonths(1);
+
+        Map<Integer, Boolean> expirationAlerts = new LinkedHashMap<>();
+        for (Medicine medicine : medicines) {
+            expirationAlerts.put(medicine.getId(), isExpirationAlertTarget(medicine.getExpirationDate(), today, alertLimitDate));
+        }
+
         model.addAttribute("medicines", medicines);
+        model.addAttribute("expirationAlerts", expirationAlerts);
         return "medicines";
     }
 
@@ -179,6 +188,20 @@ public class MedicineController {
 
         medicines.add(medicine);
         return "redirect:/medicines";
+    }
+
+    /**
+     * 使用期限が今日以降かつ1か月以内かどうかを判定します。
+     *
+     * @param expirationDate 使用期限
+     * @param today 今日の日付
+     * @param alertLimitDate 注意表示の上限日
+     * @return 期限注意の対象なら true
+     */
+    private boolean isExpirationAlertTarget(LocalDate expirationDate, LocalDate today, LocalDate alertLimitDate) {
+        return expirationDate != null
+                && !expirationDate.isBefore(today)
+                && !expirationDate.isAfter(alertLimitDate);
     }
 
     /**
