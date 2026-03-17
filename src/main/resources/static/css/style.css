@@ -132,7 +132,12 @@ h1 {
 
 /* テーブルが横幅を超える場合でも崩れにくくします。 */
 .table-wrapper {
+    width: 100%;
+    margin: 0 auto;
     overflow-x: auto;
+    border: 1px solid #d7dee7;
+    border-radius: 14px;
+    background-color: #ffffff;
 }
 
 /* 薬品一覧のテーブルデザインです。 */
@@ -140,33 +145,40 @@ h1 {
     width: 100%;
     border-collapse: collapse;
     background-color: #ffffff;
+    table-layout: auto;
 }
 
 /* テーブル見出しを分かりやすく表示します。 */
 .medicine-table th {
-    padding: 16px 18px;
-    background-color: #eff6ff;
-    color: #1e3a8a;
+    padding: 18px 20px;
+    background-color: #f3f4f6;
+    color: #374151;
     font-weight: 700;
     text-align: left;
-    border-bottom: 2px solid #bfdbfe;
+    border-bottom: 1px solid #d7dee7;
 }
 
 /* テーブル本文を読みやすい余白で整えます。 */
 .medicine-table td {
-    padding: 16px 18px;
+    padding: 18px 20px;
     border-bottom: 1px solid #e5e7eb;
     color: #374151;
+    vertical-align: middle;
 }
 
 /* 行ごとの区切りを見やすくするための背景色です。 */
 .medicine-table tbody tr:nth-child(even) {
-    background-color: #f8fafc;
+    background-color: #f9fafb;
 }
 
 /* マウスを乗せた行を少し強調します。 */
 .medicine-table tbody tr:hover {
-    background-color: #eef4ff;
+    background-color: #eef2f7;
+}
+
+/* 最終行の下線をなくしてすっきり見せます。 */
+.medicine-table tbody tr:last-child td {
+    border-bottom: none;
 }
 
 /* 戻るボタンを一覧画面向けに少し控えめな色にします。 */
