@@ -51,17 +51,20 @@
                             ${medicine.expirationDate}
                         </td>
                         <td>
-                            <div class="status-group">
-                                <c:if test="${isLowStock}">
+                            <c:choose>
+                                <c:when test="${isLowStock and isExpirationAlert}">
+                                    <span class="status-badge status-critical">在庫不足・期限注意</span>
+                                </c:when>
+                                <c:when test="${isLowStock}">
                                     <span class="status-badge status-warning">在庫不足</span>
-                                </c:if>
-                                <c:if test="${isExpirationAlert}">
+                                </c:when>
+                                <c:when test="${isExpirationAlert}">
                                     <span class="status-badge status-expiration">期限注意</span>
-                                </c:if>
-                                <c:if test="${not isLowStock and not isExpirationAlert}">
+                                </c:when>
+                                <c:otherwise>
                                     <span class="status-badge status-normal">正常</span>
-                                </c:if>
-                            </div>
+                                </c:otherwise>
+                            </c:choose>
                         </td>
                     </tr>
                 </c:forEach>

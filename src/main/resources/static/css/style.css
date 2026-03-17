@@ -242,6 +242,12 @@ h1 {
     background-color: #ffedd5;
     color: #c2410c;
 }
+
+/* 在庫不足と期限注意の両方に該当する状態です。 */
+.status-critical {
+    background-color: #fef2f2;
+    color: #991b1b;
+}
 /* 通常状態の表示です。 */
 .status-normal {
     background-color: #e8f5ee;
