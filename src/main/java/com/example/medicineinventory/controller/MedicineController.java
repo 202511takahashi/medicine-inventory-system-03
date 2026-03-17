@@ -6,7 +6,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -24,7 +23,7 @@ public class MedicineController {
      */
     @GetMapping("/medicines")
     public String showMedicines(Model model) {
-        // 今回は一覧表示の確認用として、仮の薬品データを3件用意します。
+        // 一覧画面の表示確認がしやすいように、カテゴリや在庫数が異なる仮データを用意します。
         List<Medicine> medicines = List.of(
                 new Medicine(
                         1,
@@ -32,7 +31,7 @@ public class MedicineController {
                         "解熱鎮痛薬",
                         20,
                         LocalDate.of(2026, 12, 31),
-                        LocalDateTime.now()
+                        null
                 ),
                 new Medicine(
                         2,
@@ -40,7 +39,7 @@ public class MedicineController {
                         "抗生物質",
                         8,
                         LocalDate.of(2026, 8, 15),
-                        LocalDateTime.now()
+                        null
                 ),
                 new Medicine(
                         3,
@@ -48,7 +47,23 @@ public class MedicineController {
                         "消毒薬",
                         15,
                         LocalDate.of(2027, 3, 31),
-                        LocalDateTime.now()
+                        null
+                ),
+                new Medicine(
+                        4,
+                        "ロキソプロフェン",
+                        "解熱鎮痛薬",
+                        5,
+                        LocalDate.of(2026, 10, 20),
+                        null
+                ),
+                new Medicine(
+                        5,
+                        "生理食塩液",
+                        "点滴・輸液",
+                        30,
+                        LocalDate.of(2027, 6, 10),
+                        null
                 )
         );
 
