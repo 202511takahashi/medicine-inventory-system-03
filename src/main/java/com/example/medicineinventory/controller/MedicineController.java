@@ -16,6 +16,16 @@ import java.util.List;
 public class MedicineController {
 
     /**
+     * /medicines/new にアクセスしたときに薬品登録画面を表示します。
+     *
+     * @return 薬品登録画面
+     */
+    @GetMapping("/medicines/new")
+    public String showMedicineForm() {
+        return "medicine-form";
+    }
+
+    /**
      * /medicines にアクセスしたときに薬品一覧画面を表示します。
      *
      * @param model JSP にデータを渡すためのオブジェクト
