@@ -1,4 +1,4 @@
-/* トップ画面を見やすく整えるための最小限のスタイルです。 */
+/* トップ画面全体の色や文字の基本設定です。 */
 body {
     margin: 0;
     min-height: 100vh;
@@ -7,6 +7,7 @@ body {
     color: #1f2937;
 }
 
+/* 画面中央にカードを配置するためのレイアウトです。 */
 .container {
     min-height: 100vh;
     display: flex;
@@ -16,17 +17,19 @@ body {
     box-sizing: border-box;
 }
 
+/* トップ画面の本文を囲むカードデザインです。 */
 .card {
     width: 100%;
-    max-width: 720px;
+    max-width: 760px;
     background-color: #ffffff;
     border: 1px solid #d9e2ec;
-    border-radius: 16px;
-    padding: 48px 40px;
-    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+    border-radius: 18px;
+    padding: 56px 44px;
+    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
     text-align: center;
 }
 
+/* 小見出しの装飾です。 */
 .eyebrow {
     margin: 0 0 12px;
     font-size: 0.95rem;
@@ -36,21 +39,66 @@ body {
     color: #2563eb;
 }
 
+/* メインタイトルを目立たせます。 */
 h1 {
     margin: 0 0 20px;
     font-size: clamp(2rem, 5vw, 2.8rem);
     font-weight: 700;
+    letter-spacing: 0.03em;
 }
 
+/* 説明文を読みやすい行間で表示します。 */
 .description {
     margin: 0;
-    font-size: 1rem;
-    line-height: 1.8;
+    font-size: 1.05rem;
+    line-height: 1.9;
     color: #4b5563;
+}
+
+/* ボタンの配置用エリアです。 */
+.action-area {
+    margin-top: 32px;
+}
+
+/* 画面遷移用のボタンデザインです。 */
+.menu-button {
+    display: inline-block;
+    padding: 14px 32px;
+    border-radius: 999px;
+    background-color: #2563eb;
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 10px 20px rgba(37, 99, 235, 0.22);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+/* ホバー時に少し浮き上がるように見せます。 */
+.menu-button:hover {
+    background-color: #1d4ed8;
+    transform: translateY(-2px);
+    box-shadow: 0 14px 24px rgba(29, 78, 216, 0.24);
+}
+
+/* キーボード操作でも見やすいようにフォーカス時の枠を表示します。 */
+.menu-button:focus-visible {
+    outline: 3px solid rgba(37, 99, 235, 0.28);
+    outline-offset: 4px;
 }
 
 @media (max-width: 768px) {
     .card {
-        padding: 36px 24px;
+        padding: 40px 24px;
+    }
+
+    .description {
+        font-size: 1rem;
+    }
+
+    .menu-button {
+        width: 100%;
+        max-width: 320px;
+        box-sizing: border-box;
     }
 }
