@@ -66,10 +66,10 @@
                 <p class="summary-note">使用期限が1か月以内の薬品</p>
             </article>
 
-            <article class="summary-card summary-normal-card">
-                <p class="summary-label">正常</p>
-                <p class="summary-value">${normalCount}</p>
-                <p class="summary-note">在庫・期限ともに問題なし</p>
+            <article class="summary-card summary-expired-card">
+                <p class="summary-label">期限切れ</p>
+                <p class="summary-value">${expiredCount}</p>
+                <p class="summary-note">使用期限が今日より前の薬品</p>
             </article>
         </section>
 
@@ -133,6 +133,7 @@
                             <c:forEach var="medicine" items="${medicines}">
                                 <c:set var="isLowStock" value="${medicine.stockQuantity <= 10}" />
                                 <c:set var="isExpirationAlert" value="${expirationAlerts[medicine.id]}" />
+                                <c:set var="isExpired" value="${expiredAlerts[medicine.id]}" />
                                 <c:set var="categoryClass" value="category-other" />
                                 <c:choose>
                                     <c:when test="${medicine.category == '解熱鎮痛薬'}">
@@ -181,13 +182,19 @@
                                     <td class="stock-cell ${isLowStock ? 'stock-warning-text' : ''}">
                                         ${medicine.stockQuantity}
                                     </td>
-                                    <td class="expiration-cell ${isExpirationAlert ? 'expiration-warning-text' : ''}">
+                                    <td class="expiration-cell ${isExpired ? 'expiration-expired-text' : (isExpirationAlert ? 'expiration-warning-text' : '')}">
                                         ${medicine.expirationDate}
                                     </td>
                                     <td>
                                         <c:choose>
+                                            <c:when test="${isLowStock and isExpired}">
+                                                <span class="status-badge status-expired-critical">在庫不足・期限切れ</span>
+                                            </c:when>
                                             <c:when test="${isLowStock and isExpirationAlert}">
                                                 <span class="status-badge status-critical">在庫不足・期限注意</span>
+                                            </c:when>
+                                            <c:when test="${isExpired}">
+                                                <span class="status-badge status-expired">期限切れ</span>
                                             </c:when>
                                             <c:when test="${isLowStock}">
                                                 <span class="status-badge status-warning">在庫不足</span>

@@ -81,33 +81,37 @@ public class MedicineController {
         List<Medicine> medicines = medicineService.getMedicines(trimmedKeyword, sortValue);
 
         Map<Integer, Boolean> expirationAlerts = new LinkedHashMap<>();
+        Map<Integer, Boolean> expiredAlerts = new LinkedHashMap<>();
         int lowStockCount = 0;
         int expiringSoonCount = 0;
-        int normalCount = 0;
+        int expiredCount = 0;
 
         for (Medicine medicine : medicines) {
             boolean isLowStock = medicine.getStockQuantity() != null && medicine.getStockQuantity() <= 10;
-            boolean isExpirationAlert = isExpirationAlertTarget(medicine.getExpirationDate(), today, alertLimitDate);
+            boolean isExpired = isExpiredTarget(medicine.getExpirationDate(), today);
+            boolean isExpirationAlert = isExpiringSoonTarget(medicine.getExpirationDate(), today, alertLimitDate);
 
             expirationAlerts.put(medicine.getId(), isExpirationAlert);
+            expiredAlerts.put(medicine.getId(), isExpired);
 
             if (isLowStock) {
                 lowStockCount++;
             }
+            if (isExpired) {
+                expiredCount++;
+            }
             if (isExpirationAlert) {
                 expiringSoonCount++;
-            }
-            if (!isLowStock && !isExpirationAlert) {
-                normalCount++;
             }
         }
 
         model.addAttribute("medicines", medicines);
         model.addAttribute("expirationAlerts", expirationAlerts);
+        model.addAttribute("expiredAlerts", expiredAlerts);
         model.addAttribute("totalCount", medicines.size());
         model.addAttribute("lowStockCount", lowStockCount);
         model.addAttribute("expiringSoonCount", expiringSoonCount);
-        model.addAttribute("normalCount", normalCount);
+        model.addAttribute("expiredCount", expiredCount);
         model.addAttribute("keyword", trimmedKeyword);
         model.addAttribute("sort", sortValue);
         return "medicines";
@@ -296,14 +300,25 @@ public class MedicineController {
     }
 
     /**
-     * 使用期限が今日以降かつ1か月以内かどうかを判定します。
+     * 使用期限が今日より前かどうかを判定します。
+     *
+     * @param expirationDate 使用期限
+     * @param today 今日の日付
+     * @return 期限切れの対象なら true
+     */
+    private boolean isExpiredTarget(LocalDate expirationDate, LocalDate today) {
+        return expirationDate != null && expirationDate.isBefore(today);
+    }
+
+    /**
+     * 使用期限が今日以上かつ1か月以内かどうかを判定します。
      *
      * @param expirationDate 使用期限
      * @param today 今日の日付
      * @param alertLimitDate 注意表示の上限日
      * @return 期限注意の対象なら true
      */
-    private boolean isExpirationAlertTarget(LocalDate expirationDate, LocalDate today, LocalDate alertLimitDate) {
+    private boolean isExpiringSoonTarget(LocalDate expirationDate, LocalDate today, LocalDate alertLimitDate) {
         return expirationDate != null
                 && !expirationDate.isBefore(today)
                 && !expirationDate.isAfter(alertLimitDate);
