@@ -47,6 +47,32 @@
             </div>
         </div>
 
+        <section class="summary-grid">
+            <article class="summary-card summary-total-card">
+                <p class="summary-label">総薬品数</p>
+                <p class="summary-value">${totalCount}</p>
+                <p class="summary-note">現在一覧に表示中の薬品件数</p>
+            </article>
+
+            <article class="summary-card summary-low-stock-card">
+                <p class="summary-label">在庫不足</p>
+                <p class="summary-value">${lowStockCount}</p>
+                <p class="summary-note">在庫数が10以下の薬品</p>
+            </article>
+
+            <article class="summary-card summary-expiring-card">
+                <p class="summary-label">期限注意</p>
+                <p class="summary-value">${expiringSoonCount}</p>
+                <p class="summary-note">使用期限が1か月以内の薬品</p>
+            </article>
+
+            <article class="summary-card summary-normal-card">
+                <p class="summary-label">正常</p>
+                <p class="summary-value">${normalCount}</p>
+                <p class="summary-note">在庫・期限ともに問題なし</p>
+            </article>
+        </section>
+
         <section class="toolbar-panel">
             <div class="toolbar-heading">
                 <h2 class="toolbar-title">検索・表示条件</h2>

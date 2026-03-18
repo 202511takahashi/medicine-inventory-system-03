@@ -469,6 +469,84 @@ h1 {
     color: #5b7083;
 }
 
+.summary-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+    margin-bottom: 28px;
+}
+
+.summary-card {
+    padding: 20px 20px 18px;
+    border: 1px solid #dbe7ef;
+    border-radius: 20px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, #f8fbfd 100%);
+    box-shadow: 0 12px 26px rgba(15, 23, 42, 0.05);
+}
+
+.summary-card::before {
+    content: "";
+    display: block;
+    width: 44px;
+    height: 4px;
+    margin-bottom: 16px;
+    border-radius: 999px;
+    background-color: #93c5fd;
+}
+
+.summary-label {
+    margin: 0 0 10px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #6b8191;
+}
+
+.summary-value {
+    margin: 0 0 8px;
+    font-size: clamp(1.9rem, 3vw, 2.4rem);
+    font-weight: 800;
+    line-height: 1.1;
+    color: #304456;
+}
+
+.summary-note {
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: #7b92a4;
+}
+
+.summary-total-card::before {
+    background-color: #60a5fa;
+}
+
+.summary-low-stock-card::before {
+    background-color: #f87171;
+}
+
+.summary-expiring-card::before {
+    background-color: #fb923c;
+}
+
+.summary-normal-card::before {
+    background-color: #34d399;
+}
+
+.summary-total-card .summary-value {
+    color: #1d4ed8;
+}
+
+.summary-low-stock-card .summary-value {
+    color: #dc2626;
+}
+
+.summary-expiring-card .summary-value {
+    color: #d97706;
+}
+
+.summary-normal-card .summary-value {
+    color: #15803d;
+}
 .toolbar-panel {
     display: flex;
     flex-direction: column;

@@ -81,12 +81,33 @@ public class MedicineController {
         List<Medicine> medicines = medicineService.getMedicines(trimmedKeyword, sortValue);
 
         Map<Integer, Boolean> expirationAlerts = new LinkedHashMap<>();
+        int lowStockCount = 0;
+        int expiringSoonCount = 0;
+        int normalCount = 0;
+
         for (Medicine medicine : medicines) {
-            expirationAlerts.put(medicine.getId(), isExpirationAlertTarget(medicine.getExpirationDate(), today, alertLimitDate));
+            boolean isLowStock = medicine.getStockQuantity() != null && medicine.getStockQuantity() <= 10;
+            boolean isExpirationAlert = isExpirationAlertTarget(medicine.getExpirationDate(), today, alertLimitDate);
+
+            expirationAlerts.put(medicine.getId(), isExpirationAlert);
+
+            if (isLowStock) {
+                lowStockCount++;
+            }
+            if (isExpirationAlert) {
+                expiringSoonCount++;
+            }
+            if (!isLowStock && !isExpirationAlert) {
+                normalCount++;
+            }
         }
 
         model.addAttribute("medicines", medicines);
         model.addAttribute("expirationAlerts", expirationAlerts);
+        model.addAttribute("totalCount", medicines.size());
+        model.addAttribute("lowStockCount", lowStockCount);
+        model.addAttribute("expiringSoonCount", expiringSoonCount);
+        model.addAttribute("normalCount", normalCount);
         model.addAttribute("keyword", trimmedKeyword);
         model.addAttribute("sort", sortValue);
         return "medicines";
