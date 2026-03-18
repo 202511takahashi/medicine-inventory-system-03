@@ -26,10 +26,16 @@
                         </p>
                     </div>
                     <div class="hero-illustration-wrap">
-                        <img
-                                src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f48a.svg"
-                                alt="ダッシュボード向けの薬カプセルアイコンイラスト"
-                                class="hero-illustration">
+                        <div class="hero-visual-panel">
+                            <img
+                                    src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/2695.svg"
+                                    alt="医療・薬品管理をイメージしたビジュアル"
+                                    class="hero-illustration hero-illustration-main">
+                            <div class="hero-visual-accent hero-visual-accent-left"></div>
+                            <div class="hero-visual-accent hero-visual-accent-right"></div>
+                            <div class="hero-visual-pill hero-visual-pill-top">Inventory</div>
+                            <div class="hero-visual-pill hero-visual-pill-bottom">Safety</div>
+                        </div>
                     </div>
                 </div>
                 <div class="hero-highlights">
