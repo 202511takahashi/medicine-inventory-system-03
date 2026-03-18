@@ -1,4 +1,4 @@
-﻿/* トップ画面全体の色や文字の基本設定です。 */
+/* トップ画面全体の色や文字の基本設定です。 */
 body {
     margin: 0;
     min-height: 100vh;
@@ -287,8 +287,20 @@ h1 {
 }
 
 /* 編集リンクを一覧の中で見つけやすく表示します。 */
-.edit-cell {
+.action-cell {
     white-space: nowrap;
+}
+
+.action-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.inline-action-form {
+    margin: 0;
 }
 
 .edit-link {
@@ -312,6 +324,30 @@ h1 {
 
 .edit-link:focus-visible {
     outline: 3px solid rgba(37, 99, 235, 0.2);
+    outline-offset: 3px;
+}
+
+.delete-button {
+    display: inline-block;
+    padding: 8px 16px;
+    border: 1px solid #fecaca;
+    border-radius: 999px;
+    color: #b91c1c;
+    background-color: #fef2f2;
+    font-size: 0.92rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.delete-button:hover {
+    color: #991b1b;
+    background-color: #fee2e2;
+    border-color: #fca5a5;
+}
+
+.delete-button:focus-visible {
+    outline: 3px solid rgba(220, 38, 38, 0.18);
     outline-offset: 3px;
 }
 

@@ -220,6 +220,22 @@ public class MedicineController {
     }
 
     /**
+     * 一覧画面から送信された削除操作を受け取り、対象データだけ削除します。
+     *
+     * @param id 削除対象の薬品ID
+     * @return 一覧画面へのリダイレクト
+     */
+    @PostMapping("/medicines/delete/{id}")
+    public String deleteMedicine(@PathVariable Integer id) {
+        Medicine medicine = findMedicineById(id);
+        if (medicine != null) {
+            medicines.remove(medicine);
+        }
+
+        return "redirect:/medicines";
+    }
+
+    /**
      * 登録と更新で共通利用する入力チェックです。
      * 入力値の整形結果とエラーメッセージをまとめて返します。
      *

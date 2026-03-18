@@ -1,4 +1,4 @@
-﻿<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
 <html lang="ja">
@@ -52,7 +52,7 @@
                             <th>在庫数</th>
                             <th>使用期限</th>
                             <th>状態</th>
-                            <th>編集</th>
+                            <th>操作</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -106,8 +106,14 @@
                                         </c:otherwise>
                                     </c:choose>
                                 </td>
-                                <td class="edit-cell">
-                                    <a href="/medicines/edit/${medicine.id}" class="edit-link">編集</a>
+                                <td class="action-cell">
+                                    <div class="action-buttons">
+                                        <a href="/medicines/edit/${medicine.id}" class="edit-link">編集</a>
+                                        <form action="/medicines/delete/${medicine.id}" method="post" class="inline-action-form">
+                                            <button type="submit" class="delete-button"
+                                                    onclick="return confirm('この薬品を削除しますか？');">削除</button>
+                                        </form>
+                                    </div>
                                 </td>
                             </tr>
                         </c:forEach>
