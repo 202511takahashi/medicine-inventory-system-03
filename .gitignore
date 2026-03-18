@@ -1,25 +1,43 @@
-HELP.md
+# Java / Maven build outputs
+# Generated files do not need Git management.
 target/
-.mvn/wrapper/maven-wrapper.jar
+*.class
+*.jar
+
+# Keep existing exceptions for unusual src-side build folders
 !**/src/main/**/target/
 !**/src/test/**/target/
 
-### STS ###
-.apt_generated
-.classpath
-.factorypath
+# Local database files
+# H2 or other local DB files are environment-specific, so ignore them.
+data/*.mv.db
+data/*.lock.db
+*.db
+*.mv.db
+*.lock.db
+
+# Maven Wrapper
+# Keep the existing project rule as-is.
+.mvn/wrapper/maven-wrapper.jar
+
+# IDE and editor files
+# Personal editor settings should not be committed.
+.idea/
+*.iml
+*.iws
+*.ipr
 .project
-.settings
+.classpath
+.settings/
+.vscode/
+
+# STS
+.apt_generated
+.factorypath
 .springBeans
 .sts4-cache
 
-### IntelliJ IDEA ###
-.idea
-*.iws
-*.iml
-*.ipr
-
-### NetBeans ###
+# NetBeans
 /nbproject/private/
 /nbbuild/
 /dist/
@@ -29,5 +47,6 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
-### VS Code ###
-.vscode/
+# OS generated files
+.DS_Store
+Thumbs.db
