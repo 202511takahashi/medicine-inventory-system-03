@@ -38,13 +38,6 @@
                     <span class="hero-highlight">安全チェック</span>
                 </div>
             </div>
-            <div class="header-action hero-action">
-                <div class="hero-side-card">
-                    <p class="hero-side-label">操作メニュー</p>
-                    <p class="hero-side-text">新しい薬品情報を登録して、一覧へすぐ反映できます。</p>
-                    <a href="/medicines/new" class="menu-button add-button hero-button">＋ 新規登録</a>
-                </div>
-            </div>
         </div>
 
         <section class="summary-grid">
@@ -74,9 +67,12 @@
         </section>
 
         <section class="toolbar-panel">
-            <div class="toolbar-heading">
-                <h2 class="toolbar-title">検索・表示条件</h2>
-                <p class="toolbar-description">薬品名やカテゴリで絞り込み、カテゴリ順に並び替えできます。</p>
+            <div class="toolbar-top">
+                <div class="toolbar-heading">
+                    <h2 class="toolbar-title">検索・表示条件</h2>
+                    <p class="toolbar-description">薬品名やカテゴリで絞り込み、カテゴリ順に並び替えできます。</p>
+                </div>
+                <a href="/medicines/new" class="menu-button add-button toolbar-add-button">＋ 新規登録</a>
             </div>
 
             <%-- 薬品検索と並び替えをまとめたフォームです。 --%>
