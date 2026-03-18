@@ -1,35 +1,52 @@
 package com.example.medicineinventory.model;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.Table;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
- * 薬品情報を表すモデルクラスです。
- * 今後の一覧表示、登録、編集、削除機能で共通して利用することを想定しています。
+ * 薬品情報を表すエンティティです。
+ * medicines テーブルと1対1で対応します。
  */
+@Entity
+@Table(name = "medicines")
 public class Medicine {
 
     /** 薬品IDです。 */
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     /** 薬品名です。 */
+    @Column(nullable = false, length = 100)
     private String name;
 
     /** 薬品の分類です。 */
+    @Column(nullable = false, length = 100)
     private String category;
 
     /** 現在の在庫数です。 */
+    @Column(name = "stock_quantity", nullable = false)
     private Integer stockQuantity;
 
     /** 使用期限です。 */
+    @Column(name = "expiration_date", nullable = false)
     private LocalDate expirationDate;
 
     /** データの作成日時です。 */
+    @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
     /**
      * デフォルトコンストラクタです。
-     * フレームワークや後から値を設定する場合に使用します。
+     * JPA がインスタンス生成するときに使用します。
      */
     public Medicine() {
     }
@@ -52,6 +69,16 @@ public class Medicine {
         this.stockQuantity = stockQuantity;
         this.expirationDate = expirationDate;
         this.createdAt = createdAt;
+    }
+
+    /**
+     * 作成日時が未設定のときだけ、保存直前に現在日時を設定します。
+     */
+    @PrePersist
+    public void prePersist() {
+        if (createdAt == null) {
+            createdAt = LocalDateTime.now();
+        }
     }
 
     public Integer getId() {
