@@ -3,7 +3,7 @@ body {
     margin: 0;
     min-height: 100vh;
     font-family: "Yu Gothic UI", "Hiragino Sans", "Meiryo", sans-serif;
-    background: linear-gradient(180deg, #f7fafc 0%, #eef3f8 100%);
+    background: linear-gradient(180deg, #f4f8fb 0%, #ecf3f8 100%);
     color: #1f2937;
 }
 
@@ -62,58 +62,80 @@ h1 {
 
 /* 画面遷移用のボタンデザインです。 */
 .menu-button {
-    display: inline-block;
-    padding: 14px 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding: 12px 26px;
     border-radius: 999px;
     background-color: #2563eb;
     color: #ffffff;
-    font-size: 1rem;
+    font-size: 0.98rem;
     font-weight: 700;
     text-decoration: none;
     border: none;
     cursor: pointer;
-    box-shadow: 0 10px 20px rgba(37, 99, 235, 0.22);
+    box-shadow: 0 10px 20px rgba(37, 99, 235, 0.18);
     transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
 }
 
 /* ホバー時に少し浮き上がるように見せます。 */
 .menu-button:hover {
     background-color: #1d4ed8;
-    transform: translateY(-2px);
-    box-shadow: 0 14px 24px rgba(29, 78, 216, 0.24);
+    transform: translateY(-1px);
+    box-shadow: 0 14px 24px rgba(29, 78, 216, 0.2);
 }
 
 /* キーボード操作でも見やすいようにフォーカス時の枠を表示します。 */
 .menu-button:focus-visible {
-    outline: 3px solid rgba(37, 99, 235, 0.28);
+    outline: 3px solid rgba(37, 99, 235, 0.22);
     outline-offset: 4px;
 }
 
 /* 一覧画面全体の横幅と余白を整えます。 */
 .page-wrapper {
     min-height: 100vh;
-    padding: 48px 24px;
+    padding: 56px 24px;
     box-sizing: border-box;
 }
 
 /* 一覧画面の内容をカードで見やすくまとめます。 */
 .list-card {
     width: 100%;
-    max-width: 1080px;
+    max-width: 1180px;
     margin: 0 auto;
-    background-color: #ffffff;
-    border: 1px solid #d9e2ec;
-    border-radius: 18px;
-    padding: 40px;
-    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, #ffffff 100%);
+    border: 1px solid #d8e2ec;
+    border-radius: 26px;
+    padding: 34px;
+    box-shadow: 0 20px 48px rgba(15, 23, 42, 0.08);
+}
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 24px;
+    margin-bottom: 24px;
+}
+
+.header-copy {
+    max-width: 760px;
+}
+
+.header-action {
+    flex-shrink: 0;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
 }
 
 /* 一覧画面の小見出しです。 */
 .section-label {
     margin: 0 0 10px;
-    font-size: 0.9rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
+    font-size: 0.82rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
     color: #2563eb;
 }
@@ -121,61 +143,116 @@ h1 {
 /* 一覧画面用のタイトルです。 */
 .page-title {
     margin: 0 0 12px;
-    font-size: clamp(1.8rem, 4vw, 2.4rem);
+    font-size: clamp(2rem, 4vw, 2.7rem);
+    line-height: 1.2;
 }
 
 /* 一覧画面用の説明文です。 */
 .page-description {
-    margin: 0 0 28px;
+    margin: 0;
+    max-width: 760px;
     font-size: 1rem;
-    line-height: 1.8;
-    color: #4b5563;
+    line-height: 1.85;
+    color: #526171;
 }
 
-/* 一覧画面上部の検索フォームと操作ボタンを横並びにします。 */
-.list-toolbar {
+.toolbar-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    padding: 22px 24px;
+    margin-bottom: 28px;
+    border: 1px solid #dbe5ef;
+    border-radius: 20px;
+    background: linear-gradient(180deg, #f8fbfe 0%, #f2f7fb 100%);
+}
+
+.toolbar-heading {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.toolbar-title {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #1f2937;
+}
+
+.toolbar-description {
+    margin: 0;
+    font-size: 0.95rem;
+    color: #5f6f82;
+}
+
+.toolbar-form {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-end;
     gap: 16px;
-    margin-bottom: 20px;
     flex-wrap: wrap;
 }
 
-/* 検索フォームを横並びで見やすく配置します。 */
-.search-form {
+.toolbar-fields {
+    display: flex;
+    gap: 14px;
+    flex: 1;
+    flex-wrap: wrap;
+}
+
+.toolbar-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1 1 260px;
+}
+
+.toolbar-field-select {
+    max-width: 250px;
+}
+
+.toolbar-label {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: #5b6878;
+}
+
+.toolbar-actions {
     display: flex;
     gap: 12px;
-    align-items: center;
     flex-wrap: wrap;
 }
 
 /* 検索キーワード入力欄です。 */
 .search-input {
-    min-width: 280px;
-    padding: 14px 16px;
-    border: 1px solid #cbd5e1;
-    border-radius: 10px;
+    width: 100%;
+    min-height: 48px;
+    padding: 12px 16px;
+    border: 1px solid #cfd9e3;
+    border-radius: 12px;
     box-sizing: border-box;
-    font-size: 1rem;
+    font-size: 0.98rem;
     color: #1f2937;
     background-color: #ffffff;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .search-input:focus {
     outline: none;
     border-color: #2563eb;
-    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
 }
 
 /* 並び替え用のセレクトボックスです。 */
 .sort-select {
-    min-width: 180px;
-    padding: 14px 16px;
-    border: 1px solid #cbd5e1;
-    border-radius: 10px;
+    width: 100%;
+    min-height: 48px;
+    padding: 12px 16px;
+    border: 1px solid #cfd9e3;
+    border-radius: 12px;
     box-sizing: border-box;
-    font-size: 1rem;
+    font-size: 0.98rem;
     color: #1f2937;
     background-color: #ffffff;
 }
@@ -183,7 +260,7 @@ h1 {
 .sort-select:focus {
     outline: none;
     border-color: #2563eb;
-    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
 }
 
 /* 検索ボタンの色です。 */
@@ -194,24 +271,12 @@ h1 {
 /* クリア用ボタンの色です。 */
 .clear-button {
     background-color: #64748b;
-    box-shadow: 0 10px 20px rgba(100, 116, 139, 0.18);
+    box-shadow: 0 10px 20px rgba(100, 116, 139, 0.16);
 }
 
 .clear-button:hover {
     background-color: #475569;
-    box-shadow: 0 14px 24px rgba(71, 85, 105, 0.22);
-}
-
-/* 検索結果が0件のときのメッセージです。 */
-.empty-message {
-    margin: 0;
-    padding: 24px;
-    border: 1px dashed #cbd5e1;
-    border-radius: 14px;
-    background-color: #f8fafc;
-    color: #475569;
-    text-align: center;
-    font-weight: 700;
+    box-shadow: 0 14px 24px rgba(71, 85, 105, 0.2);
 }
 
 /* 一覧画面上部の操作ボタンを配置します。 */
@@ -222,12 +287,38 @@ h1 {
 /* 新規登録ボタンを一覧画面で少し目立たせます。 */
 .add-button {
     background-color: #0f766e;
-    box-shadow: 0 10px 20px rgba(15, 118, 110, 0.22);
+    box-shadow: 0 10px 20px rgba(15, 118, 110, 0.2);
 }
 
 .add-button:hover {
     background-color: #0b5f59;
-    box-shadow: 0 14px 24px rgba(11, 95, 89, 0.24);
+    box-shadow: 0 14px 24px rgba(11, 95, 89, 0.22);
+}
+
+.table-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.table-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+}
+
+.table-title {
+    margin: 0 0 6px;
+    font-size: 1.12rem;
+    font-weight: 700;
+    color: #1f2937;
+}
+
+.table-caption {
+    margin: 0;
+    font-size: 0.94rem;
+    color: #607182;
 }
 
 /* テーブルが横幅を超える場合でも崩れにくくします。 */
@@ -235,15 +326,17 @@ h1 {
     width: 100%;
     margin: 0 auto;
     overflow-x: auto;
-    border: 1px solid #d7dee7;
-    border-radius: 14px;
+    border: 1px solid #dbe5ef;
+    border-radius: 20px;
     background-color: #ffffff;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
 }
 
 /* 薬品一覧のテーブルデザインです。 */
 .medicine-table {
     width: 100%;
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 0;
     background-color: #ffffff;
     table-layout: auto;
 }
@@ -251,17 +344,20 @@ h1 {
 /* テーブル見出しを分かりやすく表示します。 */
 .medicine-table th {
     padding: 18px 20px;
-    background-color: #f3f4f6;
-    color: #374151;
-    font-weight: 700;
+    background: linear-gradient(180deg, #f7f9fc 0%, #eef3f8 100%);
+    color: #4a5b6d;
+    font-size: 0.88rem;
+    font-weight: 800;
+    letter-spacing: 0.03em;
     text-align: left;
-    border-bottom: 1px solid #d7dee7;
+    border-bottom: 1px solid #dce5ee;
+    white-space: nowrap;
 }
 
 /* テーブル本文を読みやすい余白で整えます。 */
 .medicine-table td {
     padding: 18px 20px;
-    border-bottom: 1px solid #e5e7eb;
+    border-bottom: 1px solid #e6edf3;
     color: #374151;
     vertical-align: middle;
 }
@@ -273,12 +369,12 @@ h1 {
 
 /* 行ごとの区切りを見やすくするための背景色です。 */
 .medicine-table tbody tr:nth-child(even) {
-    background-color: #f9fafb;
+    background-color: #fbfdff;
 }
 
 /* マウスを乗せた行を少し強調します。 */
 .medicine-table tbody tr:hover {
-    background-color: #eef2f7;
+    background-color: #f3f8fc;
 }
 
 /* 最終行の下線をなくしてすっきり見せます。 */
@@ -286,8 +382,26 @@ h1 {
     border-bottom: none;
 }
 
+.cell-id {
+    font-weight: 700;
+    color: #607182;
+    white-space: nowrap;
+}
+
+.medicine-name-cell {
+    min-width: 220px;
+    font-weight: 700;
+    color: #1f2937;
+}
+
+.stock-cell,
+.expiration-cell {
+    white-space: nowrap;
+}
+
 /* 編集リンクを一覧の中で見つけやすく表示します。 */
 .action-cell {
+    min-width: 170px;
     white-space: nowrap;
 }
 
@@ -303,61 +417,67 @@ h1 {
     margin: 0;
 }
 
-.edit-link {
-    display: inline-block;
+.edit-link,
+.delete-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 74px;
+    min-height: 40px;
     padding: 8px 16px;
-    border: 1px solid #bfdbfe;
     border-radius: 999px;
-    color: #1d4ed8;
-    background-color: #eff6ff;
-    font-size: 0.92rem;
+    font-size: 0.9rem;
     font-weight: 700;
     text-decoration: none;
-    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.edit-link {
+    border: 1px solid #bfdbfe;
+    color: #1d4ed8;
+    background-color: #eff6ff;
 }
 
 .edit-link:hover {
     color: #1e40af;
     background-color: #dbeafe;
     border-color: #93c5fd;
+    transform: translateY(-1px);
 }
 
 .edit-link:focus-visible {
-    outline: 3px solid rgba(37, 99, 235, 0.2);
+    outline: 3px solid rgba(37, 99, 235, 0.18);
     outline-offset: 3px;
 }
 
 .delete-button {
-    display: inline-block;
-    padding: 8px 16px;
     border: 1px solid #fecaca;
-    border-radius: 999px;
     color: #b91c1c;
     background-color: #fef2f2;
-    font-size: 0.92rem;
-    font-weight: 700;
     cursor: pointer;
-    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 }
 
 .delete-button:hover {
     color: #991b1b;
     background-color: #fee2e2;
     border-color: #fca5a5;
+    transform: translateY(-1px);
 }
 
 .delete-button:focus-visible {
-    outline: 3px solid rgba(220, 38, 38, 0.18);
+    outline: 3px solid rgba(220, 38, 38, 0.16);
     outline-offset: 3px;
 }
 
 /* カテゴリをバッジ風に見やすく表示します。 */
 .category-badge {
-    display: inline-block;
-    padding: 6px 12px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 7px 12px;
     border-radius: 999px;
-    font-size: 0.85rem;
-    font-weight: 700;
+    font-size: 0.84rem;
+    font-weight: 800;
     white-space: nowrap;
 }
 
@@ -381,7 +501,7 @@ h1 {
 
 /* 点滴・輸液は水色系で表示します。 */
 .category-infusion {
-    background-color: #dbeafe;
+    background-color: #e0f2fe;
     color: #0369a1;
 }
 
@@ -389,6 +509,41 @@ h1 {
 .category-strong {
     background-color: #fee2e2;
     color: #b91c1c;
+}
+
+.category-standard {
+    background-color: #e0f2fe;
+    color: #0369a1;
+}
+
+.category-internal {
+    background-color: #ede9fe;
+    color: #6d28d9;
+}
+
+.category-topical {
+    background-color: #ffedd5;
+    color: #c2410c;
+}
+
+.category-injection {
+    background-color: #dbeafe;
+    color: #1d4ed8;
+}
+
+.category-kampo {
+    background-color: #ecfccb;
+    color: #4d7c0f;
+}
+
+.category-cold {
+    background-color: #cffafe;
+    color: #0f766e;
+}
+
+.category-highrisk {
+    background-color: #fee2e2;
+    color: #991b1b;
 }
 
 /* 未定義カテゴリはグレー系で表示します。 */
@@ -400,37 +555,33 @@ h1 {
 /* 在庫不足の在庫数を赤文字で表示します。 */
 .stock-warning-text {
     color: #dc2626;
-    font-weight: 700;
+    font-weight: 800;
+}
+
+/* 期限が近い使用期限をオレンジ色で表示します。 */
+.expiration-warning-text {
+    color: #d97706;
+    font-weight: 800;
 }
 
 /* 状態表示をバッジ風に見やすく整えます。 */
 .status-badge {
-    display: inline-block;
-    min-width: 72px;
-    padding: 6px 12px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 92px;
+    padding: 7px 12px;
     border-radius: 999px;
-    font-size: 0.85rem;
-    font-weight: 700;
+    font-size: 0.83rem;
+    font-weight: 800;
     text-align: center;
+    white-space: nowrap;
 }
 
 /* 在庫不足の警告表示です。 */
 .status-warning {
     background-color: #fee2e2;
     color: #b91c1c;
-}
-
-/* 期限が近い使用期限をオレンジ色で表示します。 */
-.expiration-warning-text {
-    color: #d97706;
-    font-weight: 700;
-}
-
-/* 状態バッジを複数並べるためのレイアウトです。 */
-.status-group {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
 }
 
 /* 使用期限が近い薬品の警告表示です。 */
@@ -441,14 +592,41 @@ h1 {
 
 /* 在庫不足と期限注意の両方に該当する状態です。 */
 .status-critical {
-    background-color: #fef2f2;
-    color: #991b1b;
+    background-color: #fff1f2;
+    color: #be123c;
 }
 
 /* 通常状態の表示です。 */
 .status-normal {
     background-color: #e8f5ee;
     color: #166534;
+}
+
+/* 検索結果が0件のときのメッセージです。 */
+.empty-state {
+    padding: 40px 24px;
+    border: 1px dashed #cfd8e3;
+    border-radius: 20px;
+    background: linear-gradient(180deg, #fbfdff 0%, #f4f8fb 100%);
+    text-align: center;
+}
+
+.empty-title {
+    margin: 0 0 10px;
+    font-size: 1.2rem;
+    color: #1f2937;
+}
+
+.empty-message {
+    margin: 0;
+    font-size: 0.98rem;
+    line-height: 1.8;
+    color: #607182;
+}
+
+.page-footer-actions {
+    display: flex;
+    justify-content: flex-start;
 }
 
 /* 戻るボタンを一覧画面向けに少し控えめな色にします。 */
@@ -547,6 +725,26 @@ h1 {
     flex-wrap: wrap;
 }
 
+@media (max-width: 900px) {
+    .page-header {
+        flex-direction: column;
+    }
+
+    .header-action {
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    .toolbar-form {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .toolbar-actions {
+        justify-content: flex-start;
+    }
+}
+
 @media (max-width: 768px) {
     .card {
         padding: 40px 24px;
@@ -567,11 +765,25 @@ h1 {
     }
 
     .list-card {
-        padding: 24px 20px;
+        padding: 22px 18px;
+        border-radius: 22px;
     }
 
-    .form-card {
-        padding: 28px 20px;
+    .toolbar-panel {
+        padding: 18px;
+    }
+
+    .toolbar-fields {
+        flex-direction: column;
+    }
+
+    .toolbar-field,
+    .toolbar-field-select {
+        max-width: none;
+    }
+
+    .table-header {
+        align-items: flex-start;
     }
 
     .medicine-table th,
@@ -579,6 +791,18 @@ h1 {
         padding: 14px 12px;
         font-size: 0.95rem;
         white-space: nowrap;
+    }
+
+    .action-buttons {
+        flex-direction: column;
+    }
+
+    .page-footer-actions {
+        justify-content: stretch;
+    }
+
+    .form-card {
+        padding: 28px 20px;
     }
 
     .form-actions {
