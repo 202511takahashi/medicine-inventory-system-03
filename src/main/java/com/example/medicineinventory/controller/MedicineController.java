@@ -61,6 +61,37 @@ public class MedicineController {
     }
 
     /**
+     * /medicines/detail/{id} にアクセスしたときに薬品詳細画面を表示します。
+     *
+     * @param id 表示対象の薬品ID
+     * @param model JSP にデータを渡すためのオブジェクト
+     * @return 薬品詳細画面、対象がない場合は一覧画面へリダイレクト
+     */
+    @GetMapping("/medicines/detail/{id}")
+    public String showMedicineDetail(@PathVariable Integer id, Model model) {
+        Optional<Medicine> optionalMedicine = medicineService.findMedicineById(id);
+        if (optionalMedicine.isEmpty()) {
+            return "redirect:/medicines";
+        }
+
+        Medicine medicine = optionalMedicine.get();
+        LocalDate today = LocalDate.now();
+        LocalDate alertLimitDate = today.plusMonths(1);
+
+        boolean isLowStock = medicine.getStockQuantity() != null && medicine.getStockQuantity() <= 10;
+        boolean isExpired = isExpiredTarget(medicine.getExpirationDate(), today);
+        boolean isExpirationAlert = isExpiringSoonTarget(medicine.getExpirationDate(), today, alertLimitDate);
+
+        model.addAttribute("medicine", medicine);
+        model.addAttribute("isLowStock", isLowStock);
+        model.addAttribute("isExpired", isExpired);
+        model.addAttribute("isExpirationAlert", isExpirationAlert);
+        model.addAttribute("expirationTextClass", isExpired ? "expiration-expired-text" : (isExpirationAlert ? "expiration-warning-text" : ""));
+        addStatusAttributes(model, isLowStock, isExpired, isExpirationAlert);
+        return "medicine-detail";
+    }
+
+    /**
      * /medicines にアクセスしたときに薬品一覧画面を表示します。
      * キーワード検索とカテゴリ並び替えは Service 経由で取得します。
      *
@@ -201,6 +232,37 @@ public class MedicineController {
     public String deleteMedicine(@PathVariable Integer id) {
         medicineService.deleteMedicine(id);
         return "redirect:/medicines";
+    }
+
+    /**
+     * 一覧画面と詳細画面で共通利用する状態表示用の文言とクラスを設定します。
+     */
+    private void addStatusAttributes(Model model,
+                                     boolean isLowStock,
+                                     boolean isExpired,
+                                     boolean isExpirationAlert) {
+        String statusLabel = "正常";
+        String statusClass = "status-normal";
+
+        if (isLowStock && isExpired) {
+            statusLabel = "在庫不足・期限切れ";
+            statusClass = "status-expired-critical";
+        } else if (isLowStock && isExpirationAlert) {
+            statusLabel = "在庫不足・期限注意";
+            statusClass = "status-critical";
+        } else if (isExpired) {
+            statusLabel = "期限切れ";
+            statusClass = "status-expired";
+        } else if (isLowStock) {
+            statusLabel = "在庫不足";
+            statusClass = "status-warning";
+        } else if (isExpirationAlert) {
+            statusLabel = "期限注意";
+            statusClass = "status-expiration";
+        }
+
+        model.addAttribute("statusLabel", statusLabel);
+        model.addAttribute("statusClass", statusClass);
     }
 
     /**

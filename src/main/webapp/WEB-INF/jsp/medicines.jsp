@@ -209,6 +209,7 @@
                                     </td>
                                     <td class="action-cell">
                                         <div class="action-buttons">
+                                            <a href="/medicines/detail/${medicine.id}" class="detail-link">詳細</a>
                                             <a href="/medicines/edit/${medicine.id}" class="edit-link">編集</a>
                                             <form action="/medicines/delete/${medicine.id}" method="post" class="inline-action-form">
                                                 <button type="submit" class="delete-button"
