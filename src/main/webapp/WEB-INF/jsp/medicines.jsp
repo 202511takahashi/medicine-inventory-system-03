@@ -18,10 +18,20 @@
                     <span class="section-label hero-label">Medicine Inventory</span>
                     <span class="hero-chip">Dashboard</span>
                 </div>
-                <h1 class="page-title hero-title">医薬品在庫管理ダッシュボード</h1>
-                <p class="page-description hero-description">
-                    在庫状況・使用期限・安全管理をひとつの画面で確認できる、医療現場向けの管理ダッシュボードです。
-                </p>
+                <div class="hero-title-row">
+                    <div class="hero-title-block">
+                        <h1 class="page-title hero-title">医薬品在庫管理ダッシュボード</h1>
+                        <p class="page-description hero-description">
+                            在庫状況・使用期限・安全管理をひとつの画面で確認できる、医療現場向けの管理ダッシュボードです。
+                        </p>
+                    </div>
+                    <div class="hero-illustration-wrap">
+                        <img
+                                src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f48a.svg"
+                                alt="ダッシュボード向けの薬カプセルアイコンイラスト"
+                                class="hero-illustration">
+                    </div>
+                </div>
                 <div class="hero-highlights">
                     <span class="hero-highlight">在庫確認</span>
                     <span class="hero-highlight">期限管理</span>

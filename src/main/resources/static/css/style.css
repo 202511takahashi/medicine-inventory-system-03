@@ -3,8 +3,8 @@ body {
     margin: 0;
     min-height: 100vh;
     font-family: "Yu Gothic UI", "Hiragino Sans", "Meiryo", sans-serif;
-    background: linear-gradient(180deg, #f4f8fb 0%, #ecf3f8 100%);
-    color: #1f2937;
+    background: linear-gradient(180deg, #f5fbff 0%, #eef8f6 52%, #edf4f8 100%);
+    color: #304456;
 }
 
 /* 画面中央にカードを配置するためのレイアウトです。 */
@@ -126,7 +126,7 @@ h1 {
     margin: 0 0 14px;
     font-size: clamp(2.3rem, 5vw, 3.5rem);
     line-height: 1.15;
-    color: #12324a;
+    color: #1f5063;
 }
 
 .top-subtitle {
@@ -139,7 +139,7 @@ h1 {
 
 .top-description {
     max-width: 640px;
-    color: #526171;
+    color: #5b7083;
 }
 
 .top-action-group {
@@ -167,25 +167,26 @@ h1 {
 .top-hero-visual {
     display: flex;
     justify-content: center;
+    align-items: flex-start;
 }
 
 .top-visual-panel {
     position: relative;
     width: 100%;
-    max-width: 420px;
-    padding: 16px;
-    border-radius: 28px;
+    max-width: 320px;
+    padding: 12px;
+    border-radius: 24px;
     background: linear-gradient(180deg, #ffffff 0%, #f2fbff 100%);
     border: 1px solid #d7e7ee;
-    box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08);
+    box-shadow: 0 16px 30px rgba(15, 23, 42, 0.07);
 }
 
 .top-hero-image {
     display: block;
     width: 100%;
-    height: 320px;
-    object-fit: cover;
-    border-radius: 22px;
+    height: 220px;
+    object-fit: contain;
+    border-radius: 18px;
 }
 
 .top-visual-badge {
@@ -211,7 +212,7 @@ h1 {
 .badge-green {
     right: 18px;
     bottom: -12px;
-    background-color: #dcfce7;
+    background-color: #e5faee;
     color: #15803d;
 }
 
@@ -239,7 +240,7 @@ h1 {
     width: 44px;
     height: 44px;
     margin-bottom: 14px;
-    border-radius: 14px;
+    border-radius: 18px;
     background: linear-gradient(135deg, #e0f2fe 0%, #dcfce7 100%);
     color: #0f766e;
     font-weight: 800;
@@ -248,12 +249,12 @@ h1 {
 .feature-title {
     margin: 0 0 10px;
     font-size: 1.08rem;
-    color: #1f2937;
+    color: #304456;
 }
 
 .feature-text {
     margin: 0;
-    color: #5b6878;
+    color: #698091;
     line-height: 1.8;
 }
 /* 一覧画面全体の横幅と余白を整えます。 */
@@ -268,8 +269,8 @@ h1 {
     width: 100%;
     max-width: 1180px;
     margin: 0 auto;
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, #ffffff 100%);
-    border: 1px solid #d8e2ec;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, #fbfdff 100%);
+    border: 1px solid #dbe8ef;
     border-radius: 26px;
     padding: 34px;
     box-shadow: 0 20px 48px rgba(15, 23, 42, 0.08);
@@ -289,8 +290,8 @@ h1 {
     padding: 30px 30px 28px;
     border: 1px solid #d8e7ef;
     border-radius: 24px;
-    background: linear-gradient(135deg, #f4fbff 0%, #eef9f6 48%, #ffffff 100%);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    background: linear-gradient(135deg, #f2fbff 0%, #eefaf7 45%, #fbfefe 100%);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 14px 32px rgba(15, 23, 42, 0.04);
 }
 
 .hero-background {
@@ -314,7 +315,7 @@ h1 {
     flex-shrink: 0;
     display: flex;
     align-items: flex-start;
-    justify-content: flex-end;
+    justify-content: center;
 }
 
 .hero-action {
@@ -352,12 +353,43 @@ h1 {
 
 .hero-title {
     margin-bottom: 14px;
-    color: #12324a;
+    color: #1f5063;
 }
 
 .hero-description {
     max-width: 680px;
-    color: #496175;
+    color: #648092;
+}
+.hero-title-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.hero-title-block {
+    flex: 1;
+    min-width: 0;
+}
+
+.hero-illustration-wrap {
+    flex-shrink: 0;
+    width: 52px;
+    height: 52px;
+    padding: 4px;
+    margin-left: 8px;
+    border-radius: 14px;
+    background: linear-gradient(180deg, #ffffff 0%, #eff8ff 100%);
+    border: 1px solid #cfe3ee;
+    box-shadow: 0 8px 16px rgba(15, 23, 42, 0.05);
+}
+
+.hero-illustration {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 10px;
 }
 
 .hero-highlights {
@@ -374,9 +406,9 @@ h1 {
     min-height: 36px;
     padding: 6px 14px;
     border-radius: 999px;
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: rgba(255, 255, 255, 0.92);
     border: 1px solid #d7e8ef;
-    color: #33556d;
+    color: #567184;
     font-size: 0.85rem;
     font-weight: 700;
 }
@@ -385,7 +417,7 @@ h1 {
     width: 240px;
     padding: 18px;
     border: 1px solid rgba(15, 118, 110, 0.14);
-    border-radius: 20px;
+    border-radius: 24px;
     background: rgba(255, 255, 255, 0.84);
     box-shadow: 0 12px 28px rgba(15, 23, 42, 0.06);
 }
@@ -403,7 +435,7 @@ h1 {
     margin: 0 0 16px;
     font-size: 0.92rem;
     line-height: 1.7;
-    color: #526171;
+    color: #5b7083;
 }
 
 .hero-button {
@@ -434,7 +466,7 @@ h1 {
     max-width: 760px;
     font-size: 1rem;
     line-height: 1.85;
-    color: #526171;
+    color: #5b7083;
 }
 
 .toolbar-panel {
@@ -444,7 +476,7 @@ h1 {
     padding: 22px 24px;
     margin-bottom: 28px;
     border: 1px solid #dbe5ef;
-    border-radius: 20px;
+    border-radius: 24px;
     background: linear-gradient(180deg, #f8fbfe 0%, #f2f7fb 100%);
 }
 
@@ -458,13 +490,13 @@ h1 {
     margin: 0;
     font-size: 1.1rem;
     font-weight: 700;
-    color: #1f2937;
+    color: #304456;
 }
 
 .toolbar-description {
     margin: 0;
     font-size: 0.95rem;
-    color: #5f6f82;
+    color: #6b8191;
 }
 
 .toolbar-form {
@@ -496,7 +528,7 @@ h1 {
 .toolbar-label {
     font-size: 0.88rem;
     font-weight: 700;
-    color: #5b6878;
+    color: #698091;
 }
 
 .toolbar-actions {
@@ -510,11 +542,11 @@ h1 {
     width: 100%;
     min-height: 48px;
     padding: 12px 16px;
-    border: 1px solid #cfd9e3;
+    border: 1px solid #d4e2ea;
     border-radius: 12px;
     box-sizing: border-box;
     font-size: 0.98rem;
-    color: #1f2937;
+    color: #304456;
     background-color: #ffffff;
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
@@ -530,11 +562,11 @@ h1 {
     width: 100%;
     min-height: 48px;
     padding: 12px 16px;
-    border: 1px solid #cfd9e3;
+    border: 1px solid #d4e2ea;
     border-radius: 12px;
     box-sizing: border-box;
     font-size: 0.98rem;
-    color: #1f2937;
+    color: #304456;
     background-color: #ffffff;
 }
 
@@ -593,24 +625,24 @@ h1 {
     margin: 0 0 6px;
     font-size: 1.12rem;
     font-weight: 700;
-    color: #1f2937;
+    color: #304456;
 }
 
 .table-caption {
     margin: 0;
     font-size: 0.94rem;
-    color: #607182;
+    color: #7890a3;
 }
 
 /* テーブルが横幅を超える場合でも崩れにくくします。 */
-.table-wrapper {
+ .table-wrapper {
     width: 100%;
     margin: 0 auto;
     overflow-x: auto;
     border: 1px solid #dbe5ef;
-    border-radius: 20px;
+    border-radius: 24px;
     background-color: #ffffff;
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 14px 32px rgba(15, 23, 42, 0.04);
 }
 
 /* 薬品一覧のテーブルデザインです。 */
@@ -625,8 +657,8 @@ h1 {
 /* テーブル見出しを分かりやすく表示します。 */
 .medicine-table th {
     padding: 18px 20px;
-    background: linear-gradient(180deg, #f7f9fc 0%, #eef3f8 100%);
-    color: #4a5b6d;
+    background: linear-gradient(180deg, #f4fbff 0%, #ebf5fa 100%);
+    color: #537086;
     font-size: 0.88rem;
     font-weight: 800;
     letter-spacing: 0.03em;
@@ -639,7 +671,7 @@ h1 {
 .medicine-table td {
     padding: 18px 20px;
     border-bottom: 1px solid #e6edf3;
-    color: #374151;
+    color: #556b7d;
     vertical-align: middle;
 }
 
@@ -650,12 +682,12 @@ h1 {
 
 /* 行ごとの区切りを見やすくするための背景色です。 */
 .medicine-table tbody tr:nth-child(even) {
-    background-color: #fbfdff;
+    background-color: #fcfeff;
 }
 
 /* マウスを乗せた行を少し強調します。 */
 .medicine-table tbody tr:hover {
-    background-color: #f3f8fc;
+    background-color: #f2faf8;
 }
 
 /* 最終行の下線をなくしてすっきり見せます。 */
@@ -665,14 +697,14 @@ h1 {
 
 .cell-id {
     font-weight: 700;
-    color: #607182;
+    color: #7890a3;
     white-space: nowrap;
 }
 
 .medicine-name-cell {
     min-width: 220px;
     font-weight: 700;
-    color: #1f2937;
+    color: #304456;
 }
 
 .stock-cell,
@@ -740,7 +772,7 @@ h1 {
 
 .delete-button:hover {
     color: #991b1b;
-    background-color: #fee2e2;
+    background-color: #fdeaea;
     border-color: #fca5a5;
     transform: translateY(-1px);
 }
@@ -770,30 +802,30 @@ h1 {
 
 /* 抗生物質は緑系で表示します。 */
 .category-antibiotic {
-    background-color: #dcfce7;
+    background-color: #e5faee;
     color: #15803d;
 }
 
 /* 消毒薬は紫系で表示します。 */
 .category-disinfectant {
-    background-color: #f3e8ff;
+    background-color: #f4ecff;
     color: #7e22ce;
 }
 
 /* 点滴・輸液は水色系で表示します。 */
 .category-infusion {
-    background-color: #e0f2fe;
+    background-color: #e5f7ff;
     color: #0369a1;
 }
 
 /* 劇薬は赤系で表示します。 */
 .category-strong {
-    background-color: #fee2e2;
+    background-color: #fdeaea;
     color: #b91c1c;
 }
 
 .category-standard {
-    background-color: #e0f2fe;
+    background-color: #e5f7ff;
     color: #0369a1;
 }
 
@@ -803,7 +835,7 @@ h1 {
 }
 
 .category-topical {
-    background-color: #ffedd5;
+    background-color: #fff2df;
     color: #c2410c;
 }
 
@@ -818,18 +850,18 @@ h1 {
 }
 
 .category-cold {
-    background-color: #cffafe;
+    background-color: #daf9fb;
     color: #0f766e;
 }
 
 .category-highrisk {
-    background-color: #fee2e2;
+    background-color: #fdeaea;
     color: #991b1b;
 }
 
 /* 未定義カテゴリはグレー系で表示します。 */
 .category-other {
-    background-color: #e5e7eb;
+    background-color: #edf1f4;
     color: #4b5563;
 }
 
@@ -861,25 +893,25 @@ h1 {
 
 /* 在庫不足の警告表示です。 */
 .status-warning {
-    background-color: #fee2e2;
+    background-color: #fdeaea;
     color: #b91c1c;
 }
 
 /* 使用期限が近い薬品の警告表示です。 */
 .status-expiration {
-    background-color: #ffedd5;
+    background-color: #fff2df;
     color: #c2410c;
 }
 
 /* 在庫不足と期限注意の両方に該当する状態です。 */
 .status-critical {
-    background-color: #fff1f2;
+    background-color: #fff4f5;
     color: #be123c;
 }
 
 /* 通常状態の表示です。 */
 .status-normal {
-    background-color: #e8f5ee;
+    background-color: #ecf8f1;
     color: #166534;
 }
 
@@ -887,22 +919,22 @@ h1 {
 .empty-state {
     padding: 40px 24px;
     border: 1px dashed #cfd8e3;
-    border-radius: 20px;
-    background: linear-gradient(180deg, #fbfdff 0%, #f4f8fb 100%);
+    border-radius: 24px;
+    background: linear-gradient(180deg, #fbfeff 0%, #f2f9f8 100%);
     text-align: center;
 }
 
 .empty-title {
     margin: 0 0 10px;
     font-size: 1.2rem;
-    color: #1f2937;
+    color: #304456;
 }
 
 .empty-message {
     margin: 0;
     font-size: 0.98rem;
     line-height: 1.8;
-    color: #607182;
+    color: #7890a3;
 }
 
 .page-footer-actions {
@@ -946,7 +978,7 @@ h1 {
 .medicine-form {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 14px;
 }
 
 /* 入力項目ごとに余白を持たせます。 */
@@ -960,7 +992,7 @@ h1 {
 .form-label {
     font-size: 0.95rem;
     font-weight: 700;
-    color: #374151;
+    color: #556b7d;
 }
 
 /* 入力欄を読みやすく押しやすい形に整えます。 */
@@ -971,7 +1003,7 @@ h1 {
     border-radius: 10px;
     box-sizing: border-box;
     font-size: 1rem;
-    color: #1f2937;
+    color: #304456;
     background-color: #ffffff;
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
@@ -1007,6 +1039,10 @@ h1 {
 }
 
 @media (max-width: 900px) {
+    .hero-title-row {
+        align-items: flex-start;
+    }
+
     .top-hero-card {
         grid-template-columns: 1fr;
         padding: 24px;
@@ -1044,6 +1080,16 @@ h1 {
 }
 
 @media (max-width: 768px) {
+    .hero-title-row {
+        flex-direction: column;
+    }
+
+    .hero-illustration-wrap {
+        width: 48px;
+        height: 48px;
+        margin-left: 0;
+    }
+
     .top-page {
         padding: 24px 16px 40px;
     }
@@ -1058,7 +1104,7 @@ h1 {
     }
 
     .top-hero-image {
-        height: 260px;
+        height: 180px;
     }
 
     .card {
