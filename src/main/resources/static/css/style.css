@@ -119,7 +119,30 @@ h1 {
     margin-bottom: 24px;
 }
 
-.header-copy {
+.dashboard-hero {
+    position: relative;
+    overflow: hidden;
+    padding: 30px 30px 28px;
+    border: 1px solid #d8e7ef;
+    border-radius: 24px;
+    background: linear-gradient(135deg, #f4fbff 0%, #eef9f6 48%, #ffffff 100%);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.hero-background {
+    position: absolute;
+    inset: auto -60px -90px auto;
+    width: 240px;
+    height: 240px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(125, 211, 252, 0.26) 0%, rgba(125, 211, 252, 0) 72%);
+    pointer-events: none;
+}
+
+.header-copy,
+.hero-copy {
+    position: relative;
+    z-index: 1;
     max-width: 760px;
 }
 
@@ -128,6 +151,100 @@ h1 {
     display: flex;
     align-items: flex-start;
     justify-content: flex-end;
+}
+
+.hero-action {
+    position: relative;
+    z-index: 1;
+}
+
+.hero-badge-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+}
+
+.hero-label {
+    margin-bottom: 0;
+}
+
+.hero-chip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 28px;
+    padding: 4px 12px;
+    border: 1px solid #bfdbfe;
+    border-radius: 999px;
+    background-color: rgba(255, 255, 255, 0.78);
+    color: #1d4ed8;
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.hero-title {
+    margin-bottom: 14px;
+    color: #12324a;
+}
+
+.hero-description {
+    max-width: 680px;
+    color: #496175;
+}
+
+.hero-highlights {
+    display: flex;
+    gap: 10px;
+    margin-top: 18px;
+    flex-wrap: wrap;
+}
+
+.hero-highlight {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 36px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border: 1px solid #d7e8ef;
+    color: #33556d;
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+.hero-side-card {
+    width: 240px;
+    padding: 18px;
+    border: 1px solid rgba(15, 118, 110, 0.14);
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.84);
+    box-shadow: 0 12px 28px rgba(15, 23, 42, 0.06);
+}
+
+.hero-side-label {
+    margin: 0 0 8px;
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #0f766e;
+}
+
+.hero-side-text {
+    margin: 0 0 16px;
+    font-size: 0.92rem;
+    line-height: 1.7;
+    color: #526171;
+}
+
+.hero-button {
+    width: 100%;
+    max-width: none;
 }
 
 /* 一覧画面の小見出しです。 */
@@ -730,9 +847,17 @@ h1 {
         flex-direction: column;
     }
 
+    .dashboard-hero {
+        padding: 24px;
+    }
+
     .header-action {
         width: 100%;
         justify-content: flex-start;
+    }
+
+    .hero-side-card {
+        width: 100%;
     }
 
     .toolbar-form {

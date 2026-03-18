@@ -11,17 +11,29 @@
 <body>
 <main class="page-wrapper">
     <section class="list-card">
-        <div class="page-header">
-            <div class="header-copy">
-                <p class="section-label">Medicine Inventory</p>
-                <h1 class="page-title">薬品一覧</h1>
-                <p class="page-description">
-                    登録済みの薬品情報を、検索・並び替え・状態確認までまとめて行える一覧画面です。<br>
-                    在庫不足や使用期限の近い薬品を見つけやすいよう、見やすさを重視して整理しています。
+        <div class="page-header dashboard-hero">
+            <div class="hero-background"></div>
+            <div class="hero-copy">
+                <div class="hero-badge-row">
+                    <span class="section-label hero-label">Medicine Inventory</span>
+                    <span class="hero-chip">Dashboard</span>
+                </div>
+                <h1 class="page-title hero-title">医薬品在庫管理ダッシュボード</h1>
+                <p class="page-description hero-description">
+                    在庫状況・使用期限・安全管理をひとつの画面で確認できる、医療現場向けの管理ダッシュボードです。
                 </p>
+                <div class="hero-highlights">
+                    <span class="hero-highlight">在庫確認</span>
+                    <span class="hero-highlight">期限管理</span>
+                    <span class="hero-highlight">安全チェック</span>
+                </div>
             </div>
-            <div class="header-action">
-                <a href="/medicines/new" class="menu-button add-button">＋ 新規登録</a>
+            <div class="header-action hero-action">
+                <div class="hero-side-card">
+                    <p class="hero-side-label">操作メニュー</p>
+                    <p class="hero-side-text">新しい薬品情報を登録して、一覧へすぐ反映できます。</p>
+                    <a href="/medicines/new" class="menu-button add-button hero-button">＋ 新規登録</a>
+                </div>
             </div>
         </div>
 
